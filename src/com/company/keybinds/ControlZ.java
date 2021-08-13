@@ -25,11 +25,11 @@ public class ControlZ extends AbstractAction {
 
             if(toRemove.getClass() == ShapeContainer.class){
                 ArrayList<ShapeContainer> c = paint.getShapesToDraw();
-                controlY.setLastRemovedDraw(new ShapeContainer(c.get(c.size() - 1).getColor(), c.get(c.size() - 1).getShape()));
+                controlY.setRemovedDraws(new ShapeContainer(c.get(c.size() - 1).getColor(), c.get(c.size() - 1).getShape()));
                 if(c.size() > 0) c.remove(c.size() - 1);
             }else{
                 ArrayList<ArrayList<ShapeContainer>> c = paint.getShapesToFill();
-                controlY.setLastRemovedFill(new ArrayList<>(c.get(c.size() - 1)));
+                controlY.setRemovedFills(new ArrayList<>(c.get(c.size() - 1)));
                 if(c.size() > 0) c.remove(c.size() - 1);
             }
 
