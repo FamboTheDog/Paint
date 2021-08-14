@@ -3,11 +3,15 @@ package com.company.view;
 import com.company.util.ShapeContainer;
 import com.company.util.ShapeMaker;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Paint extends JPanel implements MouseListener, MouseMotionListener {
@@ -54,6 +58,18 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         gd.dispose();
     }
 
+    public void createImage(){
+        BufferedImage bImg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D cg = bImg.createGraphics();
+        this.paintAll(cg);
+        try {
+            if (ImageIO.write(bImg, "png", new File("./output_image.png"))) {
+                System.out.println("image saved");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void mouseClicked(MouseEvent e) {}
 

@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.util.ShapeMaker;
+import com.company.view.ActionBar.ActionBar;
 import com.company.view.CanvasContainer;
 import com.company.view.Paint;
 import com.company.view.Toolbar;
@@ -27,6 +28,9 @@ public class Main {
         JPanel canvasContainer = new CanvasContainer(paint);
         canvasContainer.setLayout(new BorderLayout());
         f.add(canvasContainer);
+
+        ActionBar actionBar = new ActionBar(paint);
+        canvasContainer.add(actionBar, BorderLayout.NORTH);
 
         canvasContainer.add(paint, BorderLayout.CENTER);
 
