@@ -12,6 +12,7 @@ public class ControlY extends AbstractAction {
     /*
     * TO THINK ABOUT:
     *   make a maximum length for the arraylists?
+    *   reset arraylists after a change?
     * */
 
     ArrayList<ShapeContainer> removedDraws;

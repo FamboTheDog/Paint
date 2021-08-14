@@ -18,37 +18,40 @@ public class ShapeMaker {
     private int width;
     private int height;
 
-    private Shape shape;
+    private ShapeMode mode;
 
     private Color color = Color.black; // this variable in going to be strongly typed until later
 
     public ShapeMaker(){
-        this.shape = new Line2D.Double(); // default shape
+        this.mode = ShapeMode.BRUSH; // default shape
     }
 
-    public Shape getShape() {
-        return shape;
+    public ShapeMode getMode() {
+        return mode;
     }
 
     public ShapeContainer makeShape(){
         Shape shapeToReturn;
-        if(shape.getClass() == Line2D.Double.class){
-            shapeToReturn = new Line2D.Double(startX, startY, endX, endY);
-        }else if(shape.getClass() == Rectangle.class){
-            int width = startX - endX;
-            width = -width;
-            int height = startY - endY;
-            height = -height;
-            shapeToReturn = new Rectangle(startX, startY, width, height);
-        }else{
-            return null;
+        switch (mode){
+            case LINE:
+                shapeToReturn = new Line2D.Double(startX, startY, endX, endY);
+                break;
+            case RECTANGLE:
+                int width = startX - endX;
+                width = -width;
+                int height = startY - endY;
+                height = -height;
+                shapeToReturn = new Rectangle(startX, startY, width, height);
+                break;
+            default:
+                return null;
         }
 
         return new ShapeContainer(color, shapeToReturn);
     }
 
     public ShapeContainer makeBrush(){
-        if(shape.getClass() == Ellipse2D.Double.class){
+        if(mode == ShapeMode.BRUSH){
             return new ShapeContainer(color, new Ellipse2D.Double(x, y, width, height));
         } else{
             return null;
@@ -61,30 +64,6 @@ public class ShapeMaker {
 
     public void setStartY(int startY) {
         this.startY = startY;
-    }
-
-    public int getStartX() {
-        return startX;
-    }
-
-    public int getStartY() {
-        return startY;
-    }
-
-    public int getEndX() {
-        return endX;
-    }
-
-    public int getEndY() {
-        return endY;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void setX(int x) {
@@ -111,7 +90,7 @@ public class ShapeMaker {
         this.height = height;
     }
 
-    public void setShape(Shape shape) {
-        this.shape = shape;
+    public void setMode(ShapeMode mode) {
+        this.mode = mode;
     }
 }
