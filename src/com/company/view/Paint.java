@@ -1,5 +1,6 @@
 package com.company.view;
 
+import com.company.Main;
 import com.company.util.ShapeContainer;
 import com.company.util.ShapeMaker;
 
@@ -59,15 +60,25 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     }
 
     public void createImage(){
-        BufferedImage bImg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D cg = bImg.createGraphics();
-        this.paintAll(cg);
-        try {
-            if (ImageIO.write(bImg, "png", new File("./output_image.png"))) {
-                System.out.println("image saved");
+        FileDialog fileExplorer = new FileDialog(Main.getf(), "Save image", FileDialog.SAVE);
+        fileExplorer.setDirectory(System.getProperty("user.dir"));
+        fileExplorer.setFile("*.jpg");
+        fileExplorer.setVisible(true);
+        String filename = fileExplorer.getFile();
+        String directory = fileExplorer.getDirectory();
+
+        if (filename != null){
+            BufferedImage bImg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D cg = bImg.createGraphics();
+            this.paintAll(cg);
+
+            try {
+                if (ImageIO.write(bImg, "jpg", new File(directory + filename))) {
+                    System.out.println("image saved");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     @Override

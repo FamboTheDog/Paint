@@ -4,6 +4,8 @@ import com.company.view.Paint;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ActionBar extends JPanel {
 
@@ -25,6 +27,7 @@ public class ActionBar extends JPanel {
 
         JMenu fileOpt = new JMenu("File");
         JMenuItem save = new JMenuItem("Save as jpg");
+
         SaveImage saveImage = new SaveImage(paint);
         save.addActionListener(saveImage);
         fileOpt.add(save);
@@ -33,4 +36,5 @@ public class ActionBar extends JPanel {
 
         this.add(menuBar);
     }
+
 }

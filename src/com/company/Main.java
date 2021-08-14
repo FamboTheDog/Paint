@@ -12,6 +12,7 @@ import java.awt.*;
 public class Main {
 
     private final static JFrame f = new JFrame();
+
     public static void main(String[] args) {
         String APP_NAME = "Paint";
         f.setTitle(APP_NAME);
@@ -41,6 +42,10 @@ public class Main {
 
         f.revalidate();
         f.repaint();
+    }
+
+    public static JFrame getf(){
+        return Main.f;
     }
 
 }
