@@ -14,7 +14,8 @@ public class Main {
     private final static JFrame f = new JFrame();
 
     public static void main(String[] args) {
-        String APP_NAME = "Paint";
+        final String APP_NAME = "Paint";
+
         f.setTitle(APP_NAME);
         f.setSize(new Dimension(640, 480));
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +45,7 @@ public class Main {
         f.repaint();
     }
 
-    public static JFrame getf(){
+    public static JFrame getFrame(){
         return Main.f;
     }
 

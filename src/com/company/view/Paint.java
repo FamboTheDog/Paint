@@ -60,7 +60,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     }
 
     public void createImage(){
-        FileDialog fileExplorer = new FileDialog(Main.getf(), "Save image", FileDialog.SAVE);
+        FileDialog fileExplorer = new FileDialog(Main.getFrame(), "Save image", FileDialog.SAVE);
         fileExplorer.setDirectory(System.getProperty("user.dir"));
         fileExplorer.setFile("*.jpg");
         fileExplorer.setVisible(true);

@@ -23,7 +23,7 @@ public class ShapeMaker {
     private Color color = Color.black; // this variable in going to be strongly typed until later
 
     public ShapeMaker(){
-        this.mode = ShapeMode.BRUSH; // default shape
+        this.mode = ShapeMode.LINE; // default shape
     }
 
     public ShapeMode getMode() {
@@ -37,11 +37,18 @@ public class ShapeMaker {
                 shapeToReturn = new Line2D.Double(startX, startY, endX, endY);
                 break;
             case RECTANGLE:
-                int width = startX - endX;
-                width = -width;
-                int height = startY - endY;
-                height = -height;
-                shapeToReturn = new Rectangle(startX, startY, width, height);
+                int temp;
+                if(startX > endX){
+                    temp = startX;
+                    startX = endX;
+                    endX = temp;
+                }
+                if(startY > endY){
+                    temp = startY;
+                    startY = endY;
+                    endY = temp;
+                }
+                shapeToReturn = new Rectangle(startX, startY, endX - startX, endY - startY);
                 break;
             default:
                 return null;
@@ -52,7 +59,7 @@ public class ShapeMaker {
 
     public ShapeContainer makeBrush(){
         if(mode == ShapeMode.BRUSH){
-            return new ShapeContainer(color, new Ellipse2D.Double(x, y, width, height));
+            return new ShapeContainer(color, new Ellipse2D.Double(x - ((float) width / 2), y - ((float) height / 2), width, height));
         } else{
             return null;
         }
