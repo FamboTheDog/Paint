@@ -100,9 +100,6 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        shapeMaker.setEndX(e.getX());
-        shapeMaker.setEndY(e.getY());
-
         if(currentShapeToDraw != null) {
             ShapeContainer currentShapeToDrawCopy = new ShapeContainer(currentShapeToDraw.getColor(), currentShapeToDraw.getShape());
             shapesToDraw.add(currentShapeToDrawCopy);

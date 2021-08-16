@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class ControlZ extends AbstractAction {
 
-    private Paint paint;
-    private ControlY controlY;
+    private final Paint paint;
+    private final ControlY controlY;
 
     public ControlZ(Paint paint, ControlY controlY){
         this.paint = paint;

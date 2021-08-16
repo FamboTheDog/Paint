@@ -1,5 +1,6 @@
 package com.company.view;
 
+import com.company.Main;
 import com.company.util.ShapeMaker;
 import com.company.util.ShapeModes;
 
@@ -53,9 +54,20 @@ public class Toolbar extends JPanel implements ChangeListener {
             strokeSetterText.setVisible(true);
 
         });
+
         this.add(brush);
         this.add(strokeSetterText);
         this.add(strokeSetter);
+
+        JButton colorChooser = buttonMaker("Color", e->{
+            Color newColor = JColorChooser.showDialog(
+                    Main.getFrame(),
+                    "Choose Color",
+                    currentShape.getColor());
+            currentShape.setColor(newColor);
+        });
+
+        this.add(colorChooser);
     }
 
     private JButton buttonMaker(String name, ActionListener action){

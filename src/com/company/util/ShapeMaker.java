@@ -1,5 +1,6 @@
 package com.company.util;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
@@ -11,24 +12,27 @@ public class ShapeMaker {
 
     private int startX;
     private int startY;
+
     private int x;
     private int y;
-    private int endX;
-    private int endY;
+
     private int width;
     private int height;
+
     private ShapeModes mode;
 
-    private Color color = Color.black; // this variable in going to be strongly typed until later
+    @Getter private Color color = Color.black;
 
     public ShapeMaker(){
-        this.mode = ShapeModes.LINE; // default shape
+        this.mode = ShapeModes.LINE;
     }
 
     public ShapeContainer temporaryShape(){
+        Shape newShape;
         switch (mode){
             case LINE:
-                return new ShapeContainer(color, new Line2D.Double(startX, startY, x, y));
+                newShape = new Line2D.Double(startX, startY, x, y);
+                break;
             case RECTANGLE:
                 int tempX = startX;
                 int tempY = startY;
@@ -42,10 +46,12 @@ public class ShapeMaker {
                     tempY = y;
                     height = startY - tempY;
                 }
-                return new ShapeContainer(color, new Rectangle(tempX, tempY, width , height));
+                newShape = new Rectangle(tempX, tempY, width , height);
+                break;
             default:
                 return null;
         }
+        return new ShapeContainer(color, newShape);
     }
 
     public ShapeContainer makeBrush(){
