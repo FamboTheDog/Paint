@@ -21,15 +21,16 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     private final ArrayList<ShapeContainer> shapesToDraw;
     private final ArrayList<ArrayList<ShapeContainer>> shapesToFill;
-    private final ArrayList<ShapeContainer> currentPaint;
 
+    private final ArrayList<ShapeContainer> currentShapeToFill;
+    private ShapeContainer currentShapeToDraw;
 
     private final ShapeMaker shapeMaker;
 
     public Paint(ShapeMaker currentShape){
         shapesToDraw = new ArrayList<>();
         shapesToFill = new ArrayList<>();
-        currentPaint = new ArrayList<>();
+        currentShapeToFill = new ArrayList<>();
         allShapes = new ArrayList<>();
 
         this.shapeMaker = currentShape;
@@ -51,10 +52,15 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
             gd.setColor(shape.getColor());
             gd.fill(shape.getShape());
         }));
-        currentPaint.forEach((shape)->{
+        currentShapeToFill.forEach((shape)->{
             gd.setColor(shape.getColor());
             gd.fill(shape.getShape());
         });
+
+        if(currentShapeToDraw != null){
+            gd.setColor(currentShapeToDraw.getColor());
+            gd.draw(currentShapeToDraw.getShape());
+        }
 
         gd.dispose();
     }
@@ -97,19 +103,19 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         shapeMaker.setEndX(e.getX());
         shapeMaker.setEndY(e.getY());
 
-        ShapeContainer newShape = shapeMaker.makeShape();
-        if(newShape != null) {
-            shapesToDraw.add(newShape);
-            allShapes.add(newShape);
+        if(currentShapeToDraw != null) {
+            ShapeContainer currentShapeToDrawCopy = new ShapeContainer(currentShapeToDraw.getColor(), currentShapeToDraw.getShape());
+            shapesToDraw.add(currentShapeToDrawCopy);
+            allShapes.add(currentShapeToDrawCopy);
         }
 
-        if(currentPaint.size() > 0) {
-            ArrayList<ShapeContainer> currentPaintCopy = new ArrayList<>(currentPaint);
+        if(currentShapeToFill.size() > 0) {
+            ArrayList<ShapeContainer> currentPaintCopy = new ArrayList<>(currentShapeToFill);
             shapesToFill.add(currentPaintCopy);
             allShapes.add(currentPaintCopy);
-            currentPaint.clear();
+            currentShapeToFill.clear();
         }
-
+        currentShapeToDraw = null;
         repaint();
     }
 
@@ -118,7 +124,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         shapeMaker.setY(e.getY());
 
         ShapeContainer newShape = shapeMaker.makeBrush();
-        if(newShape != null) currentPaint.add(newShape);
+        if(newShape != null) currentShapeToFill.add(newShape);
 
         repaint();
     }
@@ -132,6 +138,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseDragged(MouseEvent e) {
         addToCurrentPaint(e);
+        currentShapeToDraw = shapeMaker.temporaryShape();
     }
 
     @Override

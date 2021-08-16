@@ -1,7 +1,7 @@
 package com.company.view;
 
 import com.company.util.ShapeMaker;
-import com.company.util.ShapeMode;
+import com.company.util.ShapeModes;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -30,14 +30,14 @@ public class Toolbar extends JPanel implements ChangeListener {
         strokeSetterText.setVisible(false);
 
         JButton lineDraw = buttonMaker("Line", e-> {
-            currentShape.setMode(ShapeMode.LINE);
+            currentShape.setMode(ShapeModes.LINE);
             strokeSetter.setVisible(false);
             strokeSetterText.setVisible(false);
         });
         this.add(lineDraw);
 
         JButton rectangleDraw = buttonMaker("Rect", e-> {
-            currentShape.setMode(ShapeMode.RECTANGLE);
+            currentShape.setMode(ShapeModes.RECTANGLE);
             strokeSetter.setVisible(false);
             strokeSetterText.setVisible(false);
         });
@@ -45,7 +45,7 @@ public class Toolbar extends JPanel implements ChangeListener {
 
 
         JButton brush = buttonMaker("Brush", e-> {
-            currentShape.setMode(ShapeMode.BRUSH);
+            currentShape.setMode(ShapeModes.BRUSH);
             currentShape.setWidth((Integer) strokeSetter.getValue());
             currentShape.setHeight((Integer) strokeSetter.getValue());
 

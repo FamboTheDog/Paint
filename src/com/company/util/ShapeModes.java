@@ -1,5 +1,5 @@
 package com.company.util;
 
-public enum ShapeMode {
+public enum ShapeModes {
     RECTANGLE, LINE, BRUSH
 }
