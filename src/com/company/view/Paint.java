@@ -3,6 +3,7 @@ package com.company.view;
 import com.company.Main;
 import com.company.util.ShapeContainer;
 import com.company.util.ShapeMaker;
+import lombok.Setter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +28,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     private final ShapeMaker shapeMaker;
 
+    @Setter BufferedImage loadedImage;
+
     public Paint(ShapeMaker currentShape){
         shapesToDraw = new ArrayList<>();
         shapesToFill = new ArrayList<>();
@@ -43,6 +46,10 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D gd = (Graphics2D) g;
+
+        if(loadedImage != null){
+            gd.drawImage(loadedImage, 0, 0, null);
+        }
 
         shapesToDraw.forEach((shape)->{
             gd.setColor(shape.getColor());

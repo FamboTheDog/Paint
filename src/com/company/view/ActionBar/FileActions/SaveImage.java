@@ -14,8 +14,6 @@ public class SaveImage implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("save, haha");
-
         paint.createImage();
     }
 }
