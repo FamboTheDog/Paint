@@ -1,10 +1,11 @@
 package com.company.view;
 
 import com.company.Main;
-import com.company.shapeMaker.BucketContainer;
+import com.company.keybinds.ControlY;
 import com.company.shapeMaker.ShapeContainer;
 import com.company.shapeMaker.ShapeMaker;
 import com.company.shapeMaker.ShapeModes;
+import lombok.Setter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,7 +32,9 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     private final ArrayList<BufferedImage> loadedImages;
 
-    private final ArrayList<BucketContainer> bucket;
+    private final ArrayList<BufferedImage> bucket;
+
+    @Setter private ControlY ctrlY;
 
     public Paint(ShapeMaker currentShape){
         shapesToDraw = new ArrayList<>();
@@ -56,6 +59,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
         loadedImages.forEach((image)-> gd.drawImage(image, 0, 0, null));
 
+        bucket.forEach((b)-> gd.drawImage(b, 0, 0, null));
+
         shapesToDraw.forEach((shape)->{
             gd.setColor(shape.getColor());
             gd.draw(shape.getShape());
@@ -74,10 +79,6 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
             gd.draw(currentShapeToDraw.getShape());
         }
 
-        bucket.forEach((b)->{
-            gd.setColor(b.getColor());
-            b.getCoordinates().forEach((bucketFill)-> gd.fillRect(bucketFill.x, bucketFill.y, 1, 1));
-        });
 
         gd.dispose();
     }
@@ -108,12 +109,17 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseClicked(MouseEvent e) {
         if(shapeMaker.getMode() == ShapeModes.BUCKET) {
+            long startTime = System.nanoTime();
             BufferedImage bImg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
             Graphics2D cg = bImg.createGraphics();
             this.paintAll(cg);
-            BucketContainer bucket = shapeMaker.bucket(bImg, e.getX(), e.getY(), this.getWidth(), this.getHeight());
+            System.out.println("1 "+(System.nanoTime() - startTime));
+            BufferedImage bucket = shapeMaker.bucket(bImg, e.getX(), e.getY(), this.getWidth(), this.getHeight());
             if (bucket != null) this.bucket.add(bucket);
+            System.out.println("2 "+(System.nanoTime() - startTime));
             repaint();
+            System.out.println("3 "+(System.nanoTime() - startTime));
+            System.out.println("--------");
         }
     }
 
@@ -121,6 +127,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     public void mousePressed(MouseEvent e) {
         shapeMaker.setStartX(e.getX());
         shapeMaker.setStartY(e.getY());
+
+        ctrlY.reset();
 
         addToCurrentPaint(e);
     }

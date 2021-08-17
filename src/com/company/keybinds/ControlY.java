@@ -12,7 +12,6 @@ public class ControlY extends AbstractAction {
     /*
     * TO THINK ABOUT:
     *   make a maximum length for the arraylists?
-    *   reset arraylists after a change?
     * */
 
     ArrayList<ShapeContainer> removedDraws;
@@ -62,5 +61,10 @@ public class ControlY extends AbstractAction {
     public void setRemovedFills(ArrayList<ShapeContainer> removedFills) {
         this.removedFills.add(removedFills);
         whatToRevive.add(false);
+    }
+
+    public void reset(){
+        this.removedFills.clear();
+        this.removedDraws.clear();
     }
 }

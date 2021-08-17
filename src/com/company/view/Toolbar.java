@@ -22,7 +22,7 @@ public class Toolbar extends JPanel implements ChangeListener {
     private void init() {
         this.setBackground(Color.lightGray);
 
-        SpinnerModel strokeValues = new SpinnerNumberModel(5, 0, 99, 1);
+        SpinnerModel strokeValues = new SpinnerNumberModel(5, 1, 99, 1);
         JSpinner strokeSetter = new JSpinner(strokeValues);
         strokeSetter.addChangeListener(this);
         strokeSetter.setVisible(false);

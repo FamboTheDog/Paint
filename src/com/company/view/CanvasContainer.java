@@ -2,14 +2,17 @@ package com.company.view;
 
 import com.company.keybinds.ControlY;
 import com.company.keybinds.ControlZ;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.event.InputEvent;
 
 public class CanvasContainer extends JPanel {
 
+    @Getter private final ControlY controlY;
     public CanvasContainer(Paint paint){
-        ControlY controlY = new ControlY(paint);
+        controlY = new ControlY(paint);
+
         final String CONTROL_Y_NAME = "controlY";
         // control Y bind
         this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke('Y',
@@ -21,7 +24,8 @@ public class CanvasContainer extends JPanel {
         this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke('Z',
                 InputEvent.CTRL_DOWN_MASK), CONTROL_Z_NAME);
         this.getActionMap().put(CONTROL_Z_NAME, new ControlZ(paint, controlY));
-
     }
+
+
 
 }

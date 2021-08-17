@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -27,48 +26,32 @@ public class ShapeMaker {
 
     @Getter private Color color = Color.black;
 
-    private ArrayList<Integer> bucketX;
-    private ArrayList<Integer> bucketY;
 
     public ShapeMaker(){
         this.mode = ShapeModes.LINE;
-        bucketX = new ArrayList<>();
-        bucketY = new ArrayList<>();
     }
 
-    public BucketContainer bucket(BufferedImage img, int x, int y, int boundsX, int boundsY) {
-        System.out.println(img.getRGB(x, y));
-        System.out.println(color.getRGB());
-        System.out.println("----");
-        System.out.println(x);
-        System.out.println(y);
-        System.out.println("------");
+    public BufferedImage bucket(BufferedImage img, int x, int y, int boundsX, int boundsY) {
         int startColor = img.getRGB(x, y);
         if(startColor == color.getRGB()) return null;
-        ArrayList<Point> toFill = new ArrayList<>();
+
         Queue<Point> fill = new LinkedList<>();
+
         fill.add(new Point(x, y));
-        toFill.add(new Point(x, y));
+
         while(!fill.isEmpty()){
             Point n = fill.peek();
             fill.remove(n);
-            if(img.getRGB(n.x, n.y) == startColor && n.x > 0 && n.x < boundsX - 1 && n.y > 0 && n.y < boundsY - 1){
+            if(n.x >= 0 && n.x < boundsX && n.y >= 0 && n.y < boundsY && img.getRGB(n.x, n.y) == startColor){
                 img.setRGB(n.x, n.y, color.getRGB());
 
                 fill.add(new Point(n.x + 1, n.y));
-                toFill.add(new Point(n.x + 1, n.y));
-
                 fill.add(new Point(n.x - 1, n.y));
-                toFill.add(new Point(n.x - 1, n.y));
-
                 fill.add(new Point(n.x, n.y + 1));
-                toFill.add(new Point(n.x, n.y + 1));
-
                 fill.add(new Point(n.x, n.y - 1));
-                toFill.add(new Point(n.x, n.y - 1));
             }
         }
-        return new BucketContainer(toFill, color);
+        return img;
     }
 
     public ShapeContainer temporaryShape(){

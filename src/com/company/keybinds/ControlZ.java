@@ -19,9 +19,9 @@ public class ControlZ extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Object> copy = paint.getAllShapes();
-        if(copy.size() > 0){
-            Object toRemove = copy.get(copy.size() - 1);
+        ArrayList<Object> allShapes = paint.getAllShapes();
+        if(allShapes.size() > 0){
+            Object toRemove = allShapes.get(allShapes.size() - 1);
 
             if(toRemove.getClass() == ShapeContainer.class){
                 ArrayList<ShapeContainer> c = paint.getShapesToDraw();
@@ -33,9 +33,10 @@ public class ControlZ extends AbstractAction {
                 if(c.size() > 0) c.remove(c.size() - 1);
             }
 
-            copy.remove(toRemove);
+            allShapes.remove(toRemove);
         }
 
         paint.repaint();
     }
+
 }

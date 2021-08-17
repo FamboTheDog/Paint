@@ -27,9 +27,11 @@ public class Main {
 
         Paint paint = new Paint(currentShape);
 
-        JPanel canvasContainer = new CanvasContainer(paint);
+        CanvasContainer canvasContainer = new CanvasContainer(paint);
         canvasContainer.setLayout(new BorderLayout());
         f.add(canvasContainer);
+
+        paint.setCtrlY(canvasContainer.getControlY());
 
         ActionBar actionBar = new ActionBar(paint);
         canvasContainer.add(actionBar, BorderLayout.NORTH);
