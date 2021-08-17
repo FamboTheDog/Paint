@@ -1,8 +1,8 @@
 package com.company.view;
 
 import com.company.Main;
-import com.company.util.ShapeMaker;
-import com.company.util.ShapeModes;
+import com.company.shapeMaker.ShapeMaker;
+import com.company.shapeMaker.ShapeModes;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -59,15 +59,23 @@ public class Toolbar extends JPanel implements ChangeListener {
         this.add(strokeSetterText);
         this.add(strokeSetter);
 
+        JButton bucket = buttonMaker("Bucket", e->{
+            currentShape.setMode(ShapeModes.BUCKET);
+            strokeSetter.setVisible(false);
+            strokeSetterText.setVisible(false);
+        });
+        this.add(bucket);
+
         JButton colorChooser = buttonMaker("Color", e->{
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),
                     "Choose Color",
                     currentShape.getColor());
-            currentShape.setColor(newColor);
+            if(newColor != null) currentShape.setColor(newColor);
         });
 
         this.add(colorChooser);
+
     }
 
     private JButton buttonMaker(String name, ActionListener action){

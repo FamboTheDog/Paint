@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.util.ShapeMaker;
+import com.company.shapeMaker.ShapeMaker;
 import com.company.view.ActionBar.ActionBar;
 import com.company.view.CanvasContainer;
 import com.company.view.Paint;

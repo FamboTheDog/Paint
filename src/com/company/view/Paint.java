@@ -1,9 +1,10 @@
 package com.company.view;
 
 import com.company.Main;
-import com.company.util.ShapeContainer;
-import com.company.util.ShapeMaker;
-import lombok.Setter;
+import com.company.shapeMaker.BucketContainer;
+import com.company.shapeMaker.ShapeContainer;
+import com.company.shapeMaker.ShapeMaker;
+import com.company.shapeMaker.ShapeModes;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,13 +29,19 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     private final ShapeMaker shapeMaker;
 
-    @Setter BufferedImage loadedImage;
+    private final ArrayList<BufferedImage> loadedImages;
+
+    private final ArrayList<BucketContainer> bucket;
 
     public Paint(ShapeMaker currentShape){
         shapesToDraw = new ArrayList<>();
         shapesToFill = new ArrayList<>();
         currentShapeToFill = new ArrayList<>();
         allShapes = new ArrayList<>();
+
+        loadedImages = new ArrayList<>();
+
+        bucket = new ArrayList<>();
 
         this.shapeMaker = currentShape;
 
@@ -47,9 +54,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         super.paintComponent(g);
         Graphics2D gd = (Graphics2D) g;
 
-        if(loadedImage != null){
-            gd.drawImage(loadedImage, 0, 0, null);
-        }
+        loadedImages.forEach((image)-> gd.drawImage(image, 0, 0, null));
 
         shapesToDraw.forEach((shape)->{
             gd.setColor(shape.getColor());
@@ -68,6 +73,11 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
             gd.setColor(currentShapeToDraw.getColor());
             gd.draw(currentShapeToDraw.getShape());
         }
+
+        bucket.forEach((b)->{
+            gd.setColor(b.getColor());
+            b.getCoordinates().forEach((bucketFill)-> gd.fillRect(bucketFill.x, bucketFill.y, 1, 1));
+        });
 
         gd.dispose();
     }
@@ -94,8 +104,18 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
             }
         }
     }
+
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        if(shapeMaker.getMode() == ShapeModes.BUCKET) {
+            BufferedImage bImg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D cg = bImg.createGraphics();
+            this.paintAll(cg);
+            BucketContainer bucket = shapeMaker.bucket(bImg, e.getX(), e.getY(), this.getWidth(), this.getHeight());
+            if (bucket != null) this.bucket.add(bucket);
+            repaint();
+        }
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -158,5 +178,9 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     public ArrayList<ArrayList<ShapeContainer>> getShapesToFill() {
         return shapesToFill;
+    }
+
+    public void addToLoadedImages(BufferedImage img){
+        this.loadedImages.add(img);
     }
 }
