@@ -1,4 +1,4 @@
-package com.company.view;
+package com.company.view.Toolbar;
 
 import com.company.Main;
 import com.company.shapeMaker.ShapeMaker;
@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Toolbar extends JPanel implements ChangeListener {
 
@@ -19,68 +20,86 @@ public class Toolbar extends JPanel implements ChangeListener {
         init();
     }
 
+    private JLabel strokeSetterText;
+    private JSpinner strokeSetter;
+    private JButton colorChooser;
+
+    private ArrayList<JButton> buttons;
+
     private void init() {
+        buttons = new ArrayList<>();
+
         this.setBackground(Color.lightGray);
 
         SpinnerModel strokeValues = new SpinnerNumberModel(5, 1, 99, 1);
-        JSpinner strokeSetter = new JSpinner(strokeValues);
+        strokeSetter = new JSpinner(strokeValues);
         strokeSetter.addChangeListener(this);
         strokeSetter.setVisible(false);
 
-        JLabel strokeSetterText = new JLabel("Stroke:");
+        strokeSetterText = new JLabel("Stroke:");
         strokeSetterText.setVisible(false);
 
-        JButton lineDraw = buttonMaker("Line", e-> {
-            currentShape.setMode(ShapeModes.LINE);
-            strokeSetter.setVisible(false);
-            strokeSetterText.setVisible(false);
-        });
+        JButton lineDraw = buttonMaker("Line", action(e->currentShape.setMode(ShapeModes.LINE)));
         this.add(lineDraw);
+        lineDraw.setBackground(Color.decode("#c0cce4"));
 
-        JButton rectangleDraw = buttonMaker("Rect", e-> {
-            currentShape.setMode(ShapeModes.RECTANGLE);
-            strokeSetter.setVisible(false);
-            strokeSetterText.setVisible(false);
-        });
+        JButton rectangleDraw = buttonMaker("Rect", action(e->currentShape.setMode(ShapeModes.RECTANGLE)));
         this.add(rectangleDraw);
 
 
-        JButton brush = buttonMaker("Brush", e-> {
+        JButton brush = buttonMaker("Brush", action(e-> {
             currentShape.setMode(ShapeModes.BRUSH);
             currentShape.setWidth((Integer) strokeSetter.getValue());
             currentShape.setHeight((Integer) strokeSetter.getValue());
 
             strokeSetter.setVisible(true);
             strokeSetterText.setVisible(true);
-
-        });
+        }));
 
         this.add(brush);
         this.add(strokeSetterText);
         this.add(strokeSetter);
 
-        JButton bucket = buttonMaker("Bucket", e->{
-            currentShape.setMode(ShapeModes.BUCKET);
-            strokeSetter.setVisible(false);
-            strokeSetterText.setVisible(false);
-        });
+        JButton bucket = buttonMaker("Bucket", action(e->currentShape.setMode(ShapeModes.BUCKET)));
+
         this.add(bucket);
 
-        JButton colorChooser = buttonMaker("Color", e->{
+        colorChooser = buttonMaker(" ", e->{
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),
                     "Choose Color",
                     currentShape.getColor());
-            if(newColor != null) currentShape.setColor(newColor);
+            if(newColor != null) {
+                currentShape.setColor(newColor);
+                colorChooser.setBackground(currentShape.getColor());
+            }
         });
+        colorChooser.setSize(new Dimension(50, 50));
+        colorChooser.setBackground(currentShape.getColor());
+        colorChooser.setFocusPainted(false);
+        buttons.remove(colorChooser);
+
 
         this.add(colorChooser);
+    }
 
+    private ActionListener action(ActionListener action){
+        return e -> {
+            buttons.forEach((button) -> button.setBackground(new JButton().getBackground()));
+
+            JButton source = (JButton) e.getSource();
+            source.setBackground(Color.decode("#c0cce4"));
+
+            strokeSetter.setVisible(false);
+            strokeSetterText.setVisible(false);
+            action.actionPerformed(e);
+        };
     }
 
     private JButton buttonMaker(String name, ActionListener action){
         JButton newButton = new JButton(name);
         newButton.addActionListener(action);
+        buttons.add(newButton);
         return newButton;
     }
 
