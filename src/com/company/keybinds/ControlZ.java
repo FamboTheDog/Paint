@@ -5,6 +5,7 @@ import com.company.view.Paint;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class ControlZ extends AbstractAction {
@@ -19,18 +20,25 @@ public class ControlZ extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Object> allShapes = paint.getAllShapes();
+        ArrayList<DeleteModes> allShapes = paint.getAllShapes();
         if(allShapes.size() > 0){
-            Object toRemove = allShapes.get(allShapes.size() - 1);
-
-            if(toRemove.getClass() == ShapeContainer.class){
-                ArrayList<ShapeContainer> c = paint.getShapesToDraw();
-                controlY.setRemovedDraws(new ShapeContainer(c.get(c.size() - 1).getColor(), c.get(c.size() - 1).getShape()));
-                if(c.size() > 0) c.remove(c.size() - 1);
-            }else{
-                ArrayList<ArrayList<ShapeContainer>> c = paint.getShapesToFill();
-                controlY.setRemovedFills(new ArrayList<>(c.get(c.size() - 1)));
-                if(c.size() > 0) c.remove(c.size() - 1);
+            DeleteModes toRemove = allShapes.get(allShapes.size() - 1);
+            switch (toRemove) {
+                case DRAW -> {
+                    ArrayList<ShapeContainer> c = paint.getShapesToDraw();
+                    controlY.addToRemovedDraws((c.get(c.size() - 1)));
+                    c.remove(c.size() - 1);
+                }
+                case FILL -> {
+                    ArrayList<ArrayList<ShapeContainer>> c2 = paint.getShapesToFill();
+                    controlY.addToRemovedFills(c2.get(c2.size() - 1));
+                    c2.remove(c2.size() - 1);
+                }
+                case BUCKET -> {
+                    ArrayList<BufferedImage> c3 = paint.getBucket();
+                    controlY.addToRemovedBucket(c3.get(c3.size() - 1));
+                    c3.remove(c3.size() - 1);
+                }
             }
 
             allShapes.remove(toRemove);
