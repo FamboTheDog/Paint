@@ -4,7 +4,7 @@ import com.company.shapeMaker.ShapeMaker;
 import com.company.view.ActionBar.ActionBar;
 import com.company.view.CanvasContainer;
 import com.company.view.Paint;
-import com.company.view.Toolbar.Toolbar;
+import com.company.view.Toolbar;
 
 import javax.swing.*;
 import java.awt.*;

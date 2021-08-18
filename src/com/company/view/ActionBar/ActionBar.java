@@ -10,7 +10,7 @@ import java.awt.*;
 public class ActionBar extends JPanel {
 
 
-    com.company.view.Paint paint;
+    Paint paint;
     public ActionBar(Paint paint){
         this.paint = paint;
         init();
