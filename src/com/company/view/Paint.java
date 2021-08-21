@@ -2,8 +2,7 @@ package com.company.view;
 
 import com.company.Main;
 import com.company.keybinds.ControlY;
-import com.company.keybinds.DeleteModes;
-import com.company.shapeMaker.ShapeContainer;
+import com.company.shapeMaker.containers.ShapeContainer;
 import com.company.shapeMaker.ShapeMaker;
 import com.company.shapeMaker.ShapeModes;
 import lombok.Getter;
@@ -22,32 +21,16 @@ import java.util.ArrayList;
 
 public class Paint extends JPanel implements MouseListener, MouseMotionListener {
 
-    @Getter private final ArrayList<DeleteModes> allShapes;
+    @Getter private final ArrayList<ShapeContainer> toPaint = new ArrayList<>();
 
-    @Getter private final ArrayList<ShapeContainer> shapesToDraw;
-    @Getter private final ArrayList<ArrayList<ShapeContainer>> shapesToFill;
-
-    private final ArrayList<ShapeContainer> currentShapeToFill;
+    private final ArrayList<ShapeContainer> currentShapeToFill = new ArrayList<>();
     private ShapeContainer currentShapeToDraw;
 
     private final ShapeMaker shapeMaker;
 
-    @Getter private final ArrayList<BufferedImage> loadedImages;
-
-    @Getter private final ArrayList<BufferedImage> bucket;
-
     @Setter private ControlY ctrlY;
 
     public Paint(ShapeMaker currentShape){
-        shapesToDraw = new ArrayList<>();
-        shapesToFill = new ArrayList<>();
-        currentShapeToFill = new ArrayList<>();
-        allShapes = new ArrayList<>();
-
-        loadedImages = new ArrayList<>();
-
-        bucket = new ArrayList<>();
-
         this.shapeMaker = currentShape;
 
         this.addMouseListener(this);
@@ -59,18 +42,26 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         super.paintComponent(g);
         Graphics2D gd = (Graphics2D) g;
 
-        loadedImages.forEach((image)-> gd.drawImage(image, 0, 0, null));
+        toPaint.forEach((painting)->{
+            if (painting.getShapes() != null){
+                painting.getShapes().forEach((paint->{
+                    gd.setColor(paint.getColor());
+                    switch (paint.getPaintType()){
+                        case FILL -> gd.fill(paint.getShape());
+                        case DRAW -> gd.draw(paint.getShape());
 
-        bucket.forEach((b)-> gd.drawImage(b, 0, 0, null));
-
-        shapesToDraw.forEach((shape)->{
-            gd.setColor(shape.getColor());
-            gd.draw(shape.getShape());
+                    }
+                }));
+            }else{
+                gd.setColor(painting.getColor());
+                switch (painting.getPaintType()){
+                    case FILL -> gd.fill(painting.getShape());
+                    case DRAW -> gd.draw(painting.getShape());
+                    case IMAGE -> gd.drawImage(painting.getImg(), 0, 0, null);
+                }
+            }
         });
-        shapesToFill.forEach((container) -> container.forEach((shape)->{
-            gd.setColor(shape.getColor());
-            gd.fill(shape.getShape());
-        }));
+
         currentShapeToFill.forEach((shape)->{
             gd.setColor(shape.getColor());
             gd.fill(shape.getShape());
@@ -80,7 +71,6 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
             gd.setColor(currentShapeToDraw.getColor());
             gd.draw(currentShapeToDraw.getShape());
         }
-
 
         gd.dispose();
     }
@@ -117,8 +107,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
             BufferedImage bucket = shapeMaker.bucket(bImg, e.getX(), e.getY(), this.getWidth(), this.getHeight());
 
-            this.bucket.add(bucket);
-            allShapes.add(DeleteModes.BUCKET);
+            toPaint.add(new ShapeContainer(shapeMaker.getColor(), bucket, PaintType.IMAGE));
             repaint();
         }
     }
@@ -136,15 +125,13 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseReleased(MouseEvent e) {
         if(currentShapeToDraw != null) {
-            ShapeContainer currentShapeToDrawCopy = new ShapeContainer(currentShapeToDraw.getColor(), currentShapeToDraw.getShape());
-            shapesToDraw.add(currentShapeToDrawCopy);
-            allShapes.add(DeleteModes.DRAW);
+            ShapeContainer currentShapeToDrawCopy = new ShapeContainer(shapeMaker.getColor(), currentShapeToDraw.getShape(), PaintType.DRAW);
+            toPaint.add(currentShapeToDrawCopy);
         }
 
         if(currentShapeToFill.size() > 0) {
-            ArrayList<ShapeContainer> currentPaintCopy = new ArrayList<>(currentShapeToFill);
-            shapesToFill.add(currentPaintCopy);
-            allShapes.add(DeleteModes.FILL);
+            ShapeContainer copy = new ShapeContainer(shapeMaker.getColor(), new ArrayList<>(currentShapeToFill), PaintType.FILL);
+            toPaint.add(copy);
             currentShapeToFill.clear();
         }
         currentShapeToDraw = null;
@@ -177,6 +164,6 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     public void mouseMoved(MouseEvent e) {}
 
     public void addToLoadedImages(BufferedImage img){
-        this.loadedImages.add(img);
+        toPaint.add(new ShapeContainer(shapeMaker.getColor(), img, PaintType.IMAGE));
     }
 }

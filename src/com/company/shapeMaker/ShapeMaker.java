@@ -1,5 +1,7 @@
 package com.company.shapeMaker;
 
+import com.company.shapeMaker.containers.ShapeContainer;
+import com.company.view.PaintType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -78,12 +80,12 @@ public class ShapeMaker {
             default:
                 return null;
         }
-        return new ShapeContainer(color, newShape);
+        return new ShapeContainer(color, newShape, PaintType.DRAW);
     }
 
     public ShapeContainer makeBrush(){
         if(mode == ShapeModes.BRUSH){
-            return new ShapeContainer(color, new Ellipse2D.Double(x - ((float) width / 2), y - ((float) height / 2), width, height));
+            return new ShapeContainer(color, new Ellipse2D.Double(x - ((float) width / 2), y - ((float) height / 2), width, height), PaintType.FILL);
         } else{
             return null;
         }
