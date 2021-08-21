@@ -42,6 +42,9 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         super.paintComponent(g);
         Graphics2D gd = (Graphics2D) g;
 
+        gd.setColor(Color.white);
+        gd.fillRect(0, 0, getWidth(), getHeight());
+
         toPaint.forEach((painting)->{
             if (painting.getShapes() != null){
                 painting.getShapes().forEach((paint->{
@@ -158,6 +161,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     public void mouseDragged(MouseEvent e) {
         addToCurrentPaint(e);
         currentShapeToDraw = shapeMaker.temporaryShape();
+        ShapeContainer eraser = shapeMaker.eraser();
+        if(eraser != null) toPaint.add(eraser);
     }
 
     @Override

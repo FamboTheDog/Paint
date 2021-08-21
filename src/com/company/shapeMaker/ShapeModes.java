@@ -1,5 +1,5 @@
 package com.company.shapeMaker;
 
 public enum ShapeModes {
-    RECTANGLE, LINE, BRUSH, BUCKET
+    RECTANGLE, LINE, BRUSH, BUCKET, ERASER
 }

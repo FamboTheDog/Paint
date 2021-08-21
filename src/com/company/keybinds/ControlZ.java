@@ -20,13 +20,15 @@ public class ControlZ extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<ShapeContainer> toPaintCopy = paint.getToPaint();
-        ShapeContainer removedContainer = toPaintCopy.get(toPaintCopy.size() - 1);
+        if(toPaintCopy.size() > 0){
+            ShapeContainer removedContainer = toPaintCopy.get(toPaintCopy.size() - 1);
 
-        controlY.getWhatToRevive().add(removedContainer);
+            controlY.getWhatToRevive().add(removedContainer);
 
-        toPaintCopy.remove(toPaintCopy.size() - 1);
+            toPaintCopy.remove(toPaintCopy.size() - 1);
 
-        paint.repaint();
+            paint.repaint();
+        }
     }
 
 }

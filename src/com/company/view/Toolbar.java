@@ -16,6 +16,14 @@ import java.util.ArrayList;
 
 public class Toolbar extends JPanel implements ChangeListener {
 
+    /* TODO
+        - store eraser in arraylist to make controlZ better to use
+        - fix pencil
+        - make some keyboard shortcuts to access different paint modes
+        - profit???
+    */
+
+
     ShapeMaker currentShape;
 
     public Toolbar(ShapeMaker currentShape){
@@ -29,7 +37,6 @@ public class Toolbar extends JPanel implements ChangeListener {
 
     private JLabel strokeSetterText;
     private JSpinner strokeSetter;
-    private JButton colorChooser;
 
     private ArrayList<JButton> buttons;
 
@@ -54,7 +61,7 @@ public class Toolbar extends JPanel implements ChangeListener {
         this.add(rectangleDraw);
 
 
-        JButton brush = buttonMaker("Brush", action(e-> {
+        JButton brush = buttonMaker("Pencil", action(e-> {
             currentShape.setMode(ShapeModes.BRUSH);
             currentShape.setWidth((Integer) strokeSetter.getValue());
             currentShape.setHeight((Integer) strokeSetter.getValue());
@@ -74,23 +81,62 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         this.add(bucket);
 
-        colorChooser = buttonMaker(" ", e->{
+        JButton eraser = buttonMaker("Eraser", action(e->{
+            currentShape.setMode(ShapeModes.ERASER);
+            currentShape.setWidth((Integer) strokeSetter.getValue());
+            currentShape.setHeight((Integer) strokeSetter.getValue());
+
+            strokeSetter.setVisible(true);
+            strokeSetterText.setVisible(true);
+        }));
+        this.add(eraser);
+
+        colorChooserMaker(e->{
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),
                     "Choose Color",
                     currentShape.getColor());
             if(newColor != null) {
                 currentShape.setColor(newColor);
-                colorChooser.setBackground(currentShape.getColor());
+                JButton source = (JButton) e.getSource();
+                source.setBackground(currentShape.getColor());
             }
-        });
-        colorChooser.setSize(new Dimension(50, 50));
-        colorChooser.setBackground(currentShape.getColor());
+        }, "FG", currentShape.getColor());
+
+        colorChooserMaker(e->{
+            Color newColor = JColorChooser.showDialog(
+                    Main.getFrame(),
+                    "Choose Color",
+                    currentShape.getColor());
+            if(newColor != null) {
+                currentShape.setBgColor(newColor);
+                JButton source = (JButton) e.getSource();
+                source.setBackground(currentShape.getBgColor());
+            }
+        }, "BG", currentShape.getBgColor());
+
+    }
+
+    public void colorChooserMaker(ActionListener action, String text, Color bgColor){
+        JButton colorChooser = buttonMaker(" ", action);
+        colorChooser.setBackground(bgColor);
         colorChooser.setFocusPainted(false);
+        colorChooser.setAlignmentX(JButton.CENTER_ALIGNMENT);
+
         buttons.remove(colorChooser);
 
 
-        this.add(colorChooser);
+        JPanel colorPanel = new JPanel();
+        colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.Y_AXIS));
+        colorPanel.setSize(new Dimension(50, 50));
+        colorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        colorPanel.add(colorChooser);
+        JLabel colorText = new JLabel(text);
+        colorText.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        colorPanel.add(colorText);
+
+        this.add(colorPanel);
     }
 
     private ActionListener action(ActionListener action){

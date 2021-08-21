@@ -27,6 +27,7 @@ public class ShapeMaker {
     @Getter private ShapeModes mode;
 
     @Getter private Color color = Color.black;
+    @Getter private Color bgColor = Color.white;
 
 
     public ShapeMaker(){
@@ -89,5 +90,10 @@ public class ShapeMaker {
         } else{
             return null;
         }
+    }
+
+    public ShapeContainer eraser(){
+        if(mode != ShapeModes.ERASER) return null;
+        return new ShapeContainer(bgColor, new Rectangle(x, y, width, height), PaintType.FILL);
     }
 }
