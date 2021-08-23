@@ -13,7 +13,6 @@ import java.awt.*;
 public class Main {
 
     /* TODO
-        - make some keyboard shortcuts to access different paint modes
         - make a "magnifying glass"
         - remove the dependency to use controlY from paint
         - profit???

@@ -35,6 +35,7 @@ public class Toolbar extends JPanel implements ChangeListener {
 
     @Getter private JButton pencil;
     @Getter private JButton bucket;
+    @Getter private JButton eraser;
 
     private void init() throws IOException {
         buttons = new ArrayList<>();
@@ -76,7 +77,7 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         this.add(bucket);
 
-        JButton eraser = buttonMaker("Eraser", action(e->{
+         eraser = buttonMaker("Eraser", action(e->{
             currentShape.setMode(ShapeModes.ERASER);
             currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 

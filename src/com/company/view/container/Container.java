@@ -1,11 +1,9 @@
 package com.company.view.container;
 
-import com.company.keybinds.B;
 import com.company.keybinds.control.ControlS;
 import com.company.keybinds.control.ControlY;
 import com.company.keybinds.control.ControlZ;
-import com.company.keybinds.P;
-import com.company.view.container.ActionBar.FileActions.SaveImage;
+import com.company.keybinds.paintShortcuts.Template;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
 
@@ -25,14 +23,18 @@ public class Container extends JPanel {
         createKeyBinding("CONTROL_Z", KeyStroke.getKeyStroke('Z',
                 InputEvent.CTRL_DOWN_MASK), controlZ);
 
-        P p = new P(toolbar);
-        createKeyBinding("PENCIL", KeyStroke.getKeyStroke('p'), p);
-
-        B b = new B(toolbar);
-        createKeyBinding("BUCKET", KeyStroke.getKeyStroke('b'), b);
-
         ControlS controlS = new ControlS(paint);
         createKeyBinding("CONTROL_S", KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK), controlS);
+
+        Template p = new Template(toolbar, toolbar.getPencil());
+        createKeyBinding("PENCIL", KeyStroke.getKeyStroke('p'), p);
+
+        Template b = new Template(toolbar, toolbar.getBucket());
+        createKeyBinding("BUCKET", KeyStroke.getKeyStroke('b'), b);
+
+        Template e = new Template(toolbar, toolbar.getEraser());
+        createKeyBinding("ERASER", KeyStroke.getKeyStroke('e'), e);
+
     }
 
     public void createKeyBinding(String name, KeyStroke keyStroke,Action action){
