@@ -1,4 +1,4 @@
-package com.company.view;
+package com.company.view.container.paint;
 
 import com.company.Main;
 import com.company.keybinds.ControlY;
@@ -23,7 +23,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     @Getter private final ArrayList<ShapeContainer> toPaint = new ArrayList<>();
 
-    private final ArrayList<ShapeContainer> currentShapeToFill = new ArrayList<>();
+    private ShapeContainer currentShapeToFill;
+    private ShapeContainer eraser;
     private ShapeContainer currentShapeToDraw;
 
     private final ShapeMaker shapeMaker;
@@ -32,6 +33,10 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     public Paint(ShapeMaker currentShape){
         this.shapeMaker = currentShape;
+
+        Dimension defaultSize = new Dimension(640,480);
+
+        this.setSize(defaultSize);
 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
@@ -45,35 +50,31 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         gd.setColor(Color.white);
         gd.fillRect(0, 0, getWidth(), getHeight());
 
+        Stroke defaultStroke = gd.getStroke();
+
         toPaint.forEach((painting)->{
             if (painting.getShapes() != null){
                 painting.getShapes().forEach((paint->{
                     gd.setColor(paint.getColor());
                     switch (paint.getPaintType()){
-                        case FILL -> gd.fill(paint.getShape());
+                        // not sure if the case DRAW can ever happen
+                        case PENCIL -> {
+                            gd.setStroke(paint.getStroke());
+                            gd.draw(paint.getShape());
+                            gd.setStroke(defaultStroke);
+                        }
                         case DRAW -> gd.draw(paint.getShape());
-
                     }
                 }));
             }else{
                 gd.setColor(painting.getColor());
                 switch (painting.getPaintType()){
-                    case FILL -> gd.fill(painting.getShape());
                     case DRAW -> gd.draw(painting.getShape());
                     case IMAGE -> gd.drawImage(painting.getImg(), 0, 0, null);
                 }
             }
         });
 
-        currentShapeToFill.forEach((shape)->{
-            gd.setColor(shape.getColor());
-            gd.fill(shape.getShape());
-        });
-
-        if(currentShapeToDraw != null){
-            gd.setColor(currentShapeToDraw.getColor());
-            gd.draw(currentShapeToDraw.getShape());
-        }
 
         gd.dispose();
     }
@@ -122,20 +123,30 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
         ctrlY.reset();
 
+
+        if(shapeMaker.getMode() == ShapeModes.ERASER){
+            eraser = new ShapeContainer(shapeMaker.getBgColor(), new ArrayList<>(), PaintType.PENCIL);
+            toPaint.add(eraser);
+        }else if(shapeMaker.getMode() == ShapeModes.BRUSH){
+            currentShapeToFill = new ShapeContainer(shapeMaker.getColor(), new ArrayList<>(), PaintType.PENCIL, shapeMaker.getStroke());
+            toPaint.add(currentShapeToFill);
+        }
+
         addToCurrentPaint(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(currentShapeToDraw != null) {
-            ShapeContainer currentShapeToDrawCopy = new ShapeContainer(shapeMaker.getColor(), currentShapeToDraw.getShape(), PaintType.DRAW);
-            toPaint.add(currentShapeToDrawCopy);
-        }
-
-        if(currentShapeToFill.size() > 0) {
-            ShapeContainer copy = new ShapeContainer(shapeMaker.getColor(), new ArrayList<>(currentShapeToFill), PaintType.FILL);
-            toPaint.add(copy);
-            currentShapeToFill.clear();
+        if(shapeMaker.getMode() == ShapeModes.LINE || shapeMaker.getMode() == ShapeModes.RECTANGLE) {
+            toPaint.remove(currentShapeToDraw);
+            if(currentShapeToDraw != null)
+                toPaint.add(new ShapeContainer(currentShapeToDraw.getColor(), currentShapeToDraw.getShape(), currentShapeToDraw.getPaintType()));
+        }else if(shapeMaker.getMode() == ShapeModes.BRUSH) {
+            toPaint.remove(currentShapeToFill);
+            toPaint.add(new ShapeContainer(currentShapeToFill.getColor(), currentShapeToFill.getShapes(), PaintType.PENCIL, currentShapeToFill.getStroke()));
+        }else if(shapeMaker.getMode() == ShapeModes.ERASER){
+            toPaint.remove(eraser);
+            toPaint.add(new ShapeContainer(eraser.getColor(),eraser.getShapes(), PaintType.PENCIL));
         }
         currentShapeToDraw = null;
         repaint();
@@ -146,7 +157,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
         shapeMaker.setY(e.getY());
 
         ShapeContainer newShape = shapeMaker.makeBrush();
-        if(newShape != null) currentShapeToFill.add(newShape);
+        if(newShape != null) currentShapeToFill.getShapes().add(newShape);
 
         repaint();
     }
@@ -160,9 +171,16 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseDragged(MouseEvent e) {
         addToCurrentPaint(e);
-        currentShapeToDraw = shapeMaker.temporaryShape();
+
+        if(shapeMaker.getMode() == ShapeModes.LINE || shapeMaker.getMode() == ShapeModes.RECTANGLE){
+            toPaint.remove(currentShapeToDraw);
+            currentShapeToDraw = shapeMaker.temporaryShape();
+            toPaint.add(currentShapeToDraw);
+        }
+
         ShapeContainer eraser = shapeMaker.eraser();
-        if(eraser != null) toPaint.add(eraser);
+        if(eraser != null) this.eraser.getShapes().add(eraser);
+        repaint();
     }
 
     @Override

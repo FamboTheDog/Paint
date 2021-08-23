@@ -1,7 +1,6 @@
 package com.company.shapeMaker.containers;
 
-import com.company.view.Paint;
-import com.company.view.PaintType;
+import com.company.view.container.paint.PaintType;
 import lombok.*;
 
 import java.awt.*;
@@ -15,6 +14,7 @@ public class ShapeContainer {
     Shape shape;
     ArrayList<ShapeContainer> shapes;
     BufferedImage img;
+    Stroke stroke;
     PaintType paintType;
 
     public ShapeContainer(Color color, Shape shape, PaintType paintType){
@@ -23,10 +23,24 @@ public class ShapeContainer {
         this.paintType = paintType;
     }
 
+    public ShapeContainer(Color color, Shape shape, PaintType paintType, Stroke stroke){
+        this.color = color;
+        this.shape = shape;
+        this.paintType = paintType;
+        this.stroke = stroke;
+    }
+
     public ShapeContainer(Color color, ArrayList<ShapeContainer> shapes, PaintType paintType){
         this.color = color;
         this.shapes = shapes;
         this.paintType = paintType;
+    }
+
+    public ShapeContainer(Color color, ArrayList<ShapeContainer> shapes, PaintType paintType, Stroke stroke){
+        this.color = color;
+        this.shapes = shapes;
+        this.paintType = paintType;
+        this.stroke = stroke;
     }
 
     public ShapeContainer(Color color, BufferedImage img, PaintType paintType){

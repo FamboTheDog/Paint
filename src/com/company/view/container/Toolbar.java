@@ -1,4 +1,4 @@
-package com.company.view;
+package com.company.view.container;
 
 import com.company.Main;
 import com.company.shapeMaker.ShapeMaker;
@@ -15,14 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Toolbar extends JPanel implements ChangeListener {
-
-    /* TODO
-        - store eraser in arraylist to make controlZ better to use
-        - fix pencil
-        - make some keyboard shortcuts to access different paint modes
-        - profit???
-    */
-
 
     ShapeMaker currentShape;
 
@@ -63,8 +55,7 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         JButton brush = buttonMaker("Pencil", action(e-> {
             currentShape.setMode(ShapeModes.BRUSH);
-            currentShape.setWidth((Integer) strokeSetter.getValue());
-            currentShape.setHeight((Integer) strokeSetter.getValue());
+            currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 
             strokeSetter.setVisible(true);
             strokeSetterText.setVisible(true);
@@ -83,8 +74,7 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         JButton eraser = buttonMaker("Eraser", action(e->{
             currentShape.setMode(ShapeModes.ERASER);
-            currentShape.setWidth((Integer) strokeSetter.getValue());
-            currentShape.setHeight((Integer) strokeSetter.getValue());
+            currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 
             strokeSetter.setVisible(true);
             strokeSetterText.setVisible(true);
@@ -163,7 +153,6 @@ public class Toolbar extends JPanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         JSpinner source = (JSpinner) e.getSource();
-        currentShape.setWidth((Integer) source.getValue());
-        currentShape.setHeight((Integer) source.getValue());
+        currentShape.setStrokeWidth((Integer) source.getValue());
     }
 }

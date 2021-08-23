@@ -1,12 +1,11 @@
 package com.company.shapeMaker;
 
 import com.company.shapeMaker.containers.ShapeContainer;
-import com.company.view.PaintType;
+import com.company.view.container.paint.PaintType;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
@@ -24,6 +23,10 @@ public class ShapeMaker {
     private int width;
     private int height;
 
+    @Getter private float strokeWidth;
+
+    @Getter private Stroke stroke;
+
     @Getter private ShapeModes mode;
 
     @Getter private Color color = Color.black;
@@ -35,6 +38,7 @@ public class ShapeMaker {
     }
 
     public BufferedImage bucket(BufferedImage img, int x, int y, int boundsX, int boundsY) {
+        // this is an easy-to-make variant of the flood fill algorithm
         int startColor = img.getRGB(x, y);
         if(startColor == color.getRGB()) return null;
 
@@ -85,15 +89,20 @@ public class ShapeMaker {
     }
 
     public ShapeContainer makeBrush(){
-        if(mode == ShapeModes.BRUSH){
-            return new ShapeContainer(color, new Ellipse2D.Double(x - ((float) width / 2), y - ((float) height / 2), width, height), PaintType.FILL);
-        } else{
-            return null;
-        }
+        if(mode != ShapeModes.BRUSH) return null;
+        ShapeContainer newShape = new ShapeContainer(color, new Line2D.Float(startX, startY, x, y), PaintType.PENCIL,
+                new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        startX = x;
+        startY = y;
+        return newShape;
     }
 
     public ShapeContainer eraser(){
         if(mode != ShapeModes.ERASER) return null;
-        return new ShapeContainer(bgColor, new Rectangle(x, y, width, height), PaintType.FILL);
+        ShapeContainer newShape = new ShapeContainer(bgColor, new Line2D.Float(startX, startY, x, y), PaintType.PENCIL,
+                new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        startX = x;
+        startY = y;
+        return newShape;
     }
 }

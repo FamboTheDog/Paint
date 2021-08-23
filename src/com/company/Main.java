@@ -1,47 +1,58 @@
 package com.company;
 
 import com.company.shapeMaker.ShapeMaker;
-import com.company.view.ActionBar.ActionBar;
-import com.company.view.CanvasContainer;
-import com.company.view.Paint;
-import com.company.view.Toolbar;
+import com.company.view.container.ActionBar.ActionBar;
+import com.company.view.container.Container;
+import com.company.view.container.paint.Paint;
+import com.company.view.container.Toolbar;
+import com.company.view.container.paint.PaintContainer;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
 
-    private final static JFrame f = new JFrame();
+    /* TODO
+        - make some keyboard shortcuts to access different paint modes
+        - profit???
+    */
+
+
+    private static final JFrame f = new JFrame();
+    private static final String APP_NAME = "Paint";
 
     public static void main(String[] args) {
-        final String APP_NAME = "Paint";
 
         f.setTitle(APP_NAME);
         f.setSize(new Dimension(640, 480));
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        f.setResizable(false);
+        // f.setResizable(false);
         f.setVisible(true);
 
         ShapeMaker currentShape = new ShapeMaker();
 
+
+
         Paint paint = new Paint(currentShape);
 
-        CanvasContainer canvasContainer = new CanvasContainer(paint);
-        canvasContainer.setLayout(new BorderLayout());
-        f.add(canvasContainer);
+        PaintContainer paintC = new PaintContainer(paint);
 
-        paint.setCtrlY(canvasContainer.getControlY());
+        Container container = new Container(paint);
+        container.setLayout(new BorderLayout());
+        f.add(container);
+
+        paint.setCtrlY(container.getControlY());
 
         ActionBar actionBar = new ActionBar(paint);
-        canvasContainer.add(actionBar, BorderLayout.NORTH);
+        container.add(actionBar, BorderLayout.NORTH);
 
-        canvasContainer.add(paint, BorderLayout.CENTER);
+        container.add(paintC, BorderLayout.CENTER);
 
         Toolbar toolbar = new Toolbar(currentShape);
-        canvasContainer.add(toolbar, BorderLayout.SOUTH);
+        container.add(toolbar, BorderLayout.SOUTH);
 
-        canvasContainer.requestFocusInWindow();
+        container.requestFocusInWindow();
 
         f.revalidate();
         f.repaint();

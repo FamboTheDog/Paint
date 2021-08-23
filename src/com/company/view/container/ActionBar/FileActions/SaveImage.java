@@ -1,6 +1,6 @@
-package com.company.view.ActionBar.FileActions;
+package com.company.view.container.ActionBar.FileActions;
 
-import com.company.view.Paint;
+import com.company.view.container.paint.Paint;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
