@@ -1,8 +1,8 @@
 package com.company.view.container.paint;
 
 import com.company.Main;
-import com.company.keybinds.ControlY;
-import com.company.shapeMaker.containers.ShapeContainer;
+import com.company.keybinds.control.ControlY;
+import com.company.shapeMaker.ShapeContainer;
 import com.company.shapeMaker.ShapeMaker;
 import com.company.shapeMaker.ShapeModes;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.company.keybinds;
+package com.company.keybinds.control;
 
-import com.company.shapeMaker.containers.ShapeContainer;
+import com.company.shapeMaker.ShapeContainer;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
 

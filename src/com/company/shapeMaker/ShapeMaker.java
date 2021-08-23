@@ -1,6 +1,5 @@
 package com.company.shapeMaker;
 
-import com.company.shapeMaker.containers.ShapeContainer;
 import com.company.view.container.paint.PaintType;
 import lombok.Getter;
 import lombok.Setter;

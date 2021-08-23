@@ -3,6 +3,7 @@ package com.company.view.container;
 import com.company.Main;
 import com.company.shapeMaker.ShapeMaker;
 import com.company.shapeMaker.ShapeModes;
+import lombok.Getter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,6 +33,9 @@ public class Toolbar extends JPanel implements ChangeListener {
 
     private ArrayList<JButton> buttons;
 
+    @Getter private JButton pencil;
+    @Getter private JButton bucket;
+
     private void init() throws IOException {
         buttons = new ArrayList<>();
 
@@ -53,7 +57,7 @@ public class Toolbar extends JPanel implements ChangeListener {
         this.add(rectangleDraw);
 
 
-        JButton brush = buttonMaker("Pencil", action(e-> {
+        pencil = buttonMaker("Pencil", action(e-> {
             currentShape.setMode(ShapeModes.BRUSH);
             currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 
@@ -61,11 +65,11 @@ public class Toolbar extends JPanel implements ChangeListener {
             strokeSetterText.setVisible(true);
         }));
 
-        this.add(brush);
+        this.add(pencil);
         this.add(strokeSetterText);
         this.add(strokeSetter);
 
-        JButton bucket = buttonMaker("", action(e->currentShape.setMode(ShapeModes.BUCKET)));
+        bucket = buttonMaker("", action(e->currentShape.setMode(ShapeModes.BUCKET)));
         Image bucketIcon = ImageIO.read(new File("./res/img/bucket.png"));
         bucketIcon = bucketIcon.getScaledInstance(15, 16, Image.SCALE_SMOOTH);
         bucket.setIcon(new ImageIcon(bucketIcon));
@@ -114,7 +118,6 @@ public class Toolbar extends JPanel implements ChangeListener {
         colorChooser.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
         buttons.remove(colorChooser);
-
 
         JPanel colorPanel = new JPanel();
         colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.Y_AXIS));

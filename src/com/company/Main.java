@@ -14,6 +14,8 @@ public class Main {
 
     /* TODO
         - make some keyboard shortcuts to access different paint modes
+        - make a "magnifying glass"
+        - remove the dependency to use controlY from paint
         - profit???
     */
 
@@ -27,18 +29,17 @@ public class Main {
         f.setSize(new Dimension(640, 480));
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        // f.setResizable(false);
         f.setVisible(true);
 
         ShapeMaker currentShape = new ShapeMaker();
-
-
 
         Paint paint = new Paint(currentShape);
 
         PaintContainer paintC = new PaintContainer(paint);
 
-        Container container = new Container(paint);
+        Toolbar toolbar = new Toolbar(currentShape);
+
+        Container container = new Container(paint, toolbar);
         container.setLayout(new BorderLayout());
         f.add(container);
 
@@ -48,8 +49,6 @@ public class Main {
         container.add(actionBar, BorderLayout.NORTH);
 
         container.add(paintC, BorderLayout.CENTER);
-
-        Toolbar toolbar = new Toolbar(currentShape);
         container.add(toolbar, BorderLayout.SOUTH);
 
         container.requestFocusInWindow();
