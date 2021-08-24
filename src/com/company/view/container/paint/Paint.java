@@ -31,6 +31,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     @Setter private ControlY ctrlY;
 
+    @Getter @Setter private PaintContainer paintC;
+
     public Paint(ShapeMaker currentShape){
         this.shapeMaker = currentShape;
 

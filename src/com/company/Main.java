@@ -13,8 +13,8 @@ import java.awt.*;
 public class Main {
 
     /* TODO
-        - make a "magnifying glass"
-        - remove the dependency to use controlY from paint
+        - make an ability to zoom in and out
+        - make ann scrollbars to canvas, when the canvas is bigger then the monitor size
         - profit???
     */
 
