@@ -1,5 +1,7 @@
 package com.company.view.container;
 
+import com.company.keybinds.arrows.LeftArrow;
+import com.company.keybinds.arrows.RightArrow;
 import com.company.keybinds.control.ControlS;
 import com.company.keybinds.control.ControlY;
 import com.company.keybinds.control.ControlZ;
@@ -9,6 +11,7 @@ import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class Container extends JPanel {
 
@@ -35,6 +38,11 @@ public class Container extends JPanel {
         Template e = new Template(toolbar, toolbar.getEraser());
         createKeyBinding("ERASER", KeyStroke.getKeyStroke('e'), e);
 
+        LeftArrow la = new LeftArrow(toolbar);
+        createKeyBinding("LEFT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), la);
+
+        RightArrow ra = new RightArrow(toolbar);
+        createKeyBinding("RIGHT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), ra);
     }
 
     public void createKeyBinding(String name, KeyStroke keyStroke,Action action){

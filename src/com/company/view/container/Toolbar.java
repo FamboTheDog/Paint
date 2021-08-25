@@ -7,7 +7,6 @@ import lombok.Getter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -33,6 +32,8 @@ public class Toolbar extends JPanel implements ChangeListener {
     @Getter private JButton pencil;
     @Getter private JButton bucket;
     @Getter private JButton eraser;
+    @Getter private JButton[] shapeButtons;
+    @Getter private final Color clickedColor = Color.decode("#c0cce4");
 
     private void init() {
         buttons = new ArrayList<>();
@@ -50,18 +51,22 @@ public class Toolbar extends JPanel implements ChangeListener {
         strokeSetterText = new JLabel("Stroke:");
         strokeSetterText.setVisible(false);
 
+        shapeButtons = new JButton[3];
         JButton lineDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.LINE)));
         setIcon(lineDraw, "line.png", "Line");
         shapes.add(lineDraw);
-        lineDraw.setBackground(Color.decode("#c0cce4"));
+        lineDraw.setBackground(clickedColor);
+        shapeButtons[0] = lineDraw;
 
         JButton rectangleDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.RECTANGLE)));
         setIcon(rectangleDraw, "rectangle.png", "Rectangle");
         shapes.add(rectangleDraw);
+        shapeButtons[1] = rectangleDraw;
 
         JButton circleDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.CIRCLE)));
         setIcon(circleDraw, "circle.png", "Circle");
         shapes.add(circleDraw);
+        shapeButtons[2] = circleDraw;
 
         this.add(shapes);
 
@@ -165,7 +170,7 @@ public class Toolbar extends JPanel implements ChangeListener {
             buttons.forEach((button) -> button.setBackground(new JButton().getBackground()));
 
             JButton source = (JButton) e.getSource();
-            source.setBackground(Color.decode("#c0cce4"));
+            source.setBackground(clickedColor);
 
             strokeSetter.setVisible(false);
             strokeSetterText.setVisible(false);
