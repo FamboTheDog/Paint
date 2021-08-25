@@ -191,5 +191,12 @@ public class Toolbar extends JPanel implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         JSpinner source = (JSpinner) e.getSource();
         currentShape.setStrokeWidth((Integer) source.getValue());
+        // I was lazy so just did this switch instead of a good solution
+        switch (currentShape.getMode()){
+            case BRUSH -> currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(),
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            case ERASER -> currentShape.setStroke(new BasicStroke(
+                    currentShape.getStrokeWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+        }
     }
 }
