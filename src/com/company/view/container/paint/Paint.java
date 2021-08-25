@@ -168,7 +168,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     public void mouseDragged(MouseEvent e) {
         addToCurrentPaint(e);
 
-        if(shapeMaker.getMode() == ShapeModes.LINE || shapeMaker.getMode() == ShapeModes.RECTANGLE){
+        if(shapeMaker.getMode() == ShapeModes.LINE || shapeMaker.getMode() == ShapeModes.RECTANGLE
+                || shapeMaker.getMode() == ShapeModes.CIRCLE){
             toPaint.remove(currentShapeToDraw);
             currentShapeToDraw = shapeMaker.temporaryShape();
             toPaint.add(currentShapeToDraw);

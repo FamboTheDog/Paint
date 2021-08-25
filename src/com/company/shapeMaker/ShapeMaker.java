@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
@@ -18,9 +19,6 @@ public class ShapeMaker {
 
     private int x;
     private int y;
-
-    private int width;
-    private int height;
 
     @Getter private float strokeWidth;
 
@@ -80,6 +78,22 @@ public class ShapeMaker {
                     height = startY - tempY;
                 }
                 newShape = new Rectangle(tempX, tempY, width , height);
+                break;
+            case CIRCLE:
+                // I was lazy and just copied the code, instead of making a function
+                tempX = startX;
+                tempY = startY;
+                width = x - startX;
+                height = y - startY;
+                if(startX > x){
+                    tempX = x;
+                    width = startX - tempX;
+                }
+                if(startY > y){
+                    tempY = y;
+                    height = startY - tempY;
+                }
+                newShape = new Ellipse2D.Double(tempX, tempY, width , height);
                 break;
             default:
                 return null;

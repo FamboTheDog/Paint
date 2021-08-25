@@ -15,7 +15,6 @@ public class Main {
     /* TODO
         - make an ability to zoom in and out
         - make stroke setter apply to draw shapes as well
-        - make circle, nice circle
         - profit???
     */
 

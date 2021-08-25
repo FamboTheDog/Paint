@@ -59,6 +59,10 @@ public class Toolbar extends JPanel implements ChangeListener {
         setIcon(rectangleDraw, "rectangle.png", "Rectangle");
         shapes.add(rectangleDraw);
 
+        JButton circleDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.CIRCLE)));
+        setIcon(circleDraw, "circle.png", "Circle");
+        shapes.add(circleDraw);
+
         this.add(shapes);
 
         pencil = buttonMaker("", action(e-> {
