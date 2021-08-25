@@ -14,7 +14,8 @@ public class Main {
 
     /* TODO
         - make an ability to zoom in and out
-        - make ann scrollbars to canvas, when the canvas is bigger then the monitor size
+        - make stroke setter apply to draw shapes as well
+        - make circle, nice circle
         - profit???
     */
 

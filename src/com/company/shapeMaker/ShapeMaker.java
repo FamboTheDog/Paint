@@ -90,7 +90,7 @@ public class ShapeMaker {
     public ShapeContainer makeBrush(){
         if(mode != ShapeModes.BRUSH) return null;
         ShapeContainer newShape = new ShapeContainer(color, new Line2D.Float(startX, startY, x, y), PaintType.PENCIL,
-                new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                this.stroke);
         startX = x;
         startY = y;
         return newShape;
@@ -99,7 +99,7 @@ public class ShapeMaker {
     public ShapeContainer eraser(){
         if(mode != ShapeModes.ERASER) return null;
         ShapeContainer newShape = new ShapeContainer(bgColor, new Line2D.Float(startX, startY, x, y), PaintType.PENCIL,
-                new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+                this.stroke);
         startX = x;
         startY = y;
         return newShape;

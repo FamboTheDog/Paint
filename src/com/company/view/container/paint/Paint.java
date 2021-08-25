@@ -56,18 +56,12 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
         toPaint.forEach((painting)->{
             if (painting.getShapes() != null){
-                painting.getShapes().forEach((paint->{
-                    gd.setColor(paint.getColor());
-                    switch (paint.getPaintType()){
-                        // not sure if the case DRAW can ever happen
-                        case PENCIL -> {
-                            gd.setStroke(paint.getStroke());
-                            gd.draw(paint.getShape());
-                            gd.setStroke(defaultStroke);
-                        }
-                        case DRAW -> gd.draw(paint.getShape());
-                    }
-                }));
+                gd.setColor(painting.getColor());
+                gd.setStroke(painting.getStroke());
+
+                painting.getShapes().forEach((paint-> gd.draw(paint.getShape())));
+
+                gd.setStroke(defaultStroke);
             }else{
                 gd.setColor(painting.getColor());
                 switch (painting.getPaintType()){
@@ -127,7 +121,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
 
         if(shapeMaker.getMode() == ShapeModes.ERASER){
-            eraser = new ShapeContainer(shapeMaker.getBgColor(), new ArrayList<>(), PaintType.PENCIL);
+            eraser = new ShapeContainer(shapeMaker.getBgColor(), new ArrayList<>(), PaintType.PENCIL, shapeMaker.getStroke());
             toPaint.add(eraser);
         }else if(shapeMaker.getMode() == ShapeModes.BRUSH){
             currentShapeToFill = new ShapeContainer(shapeMaker.getColor(), new ArrayList<>(), PaintType.PENCIL, shapeMaker.getStroke());
@@ -148,7 +142,7 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
             toPaint.add(new ShapeContainer(currentShapeToFill.getColor(), currentShapeToFill.getShapes(), PaintType.PENCIL, currentShapeToFill.getStroke()));
         }else if(shapeMaker.getMode() == ShapeModes.ERASER){
             toPaint.remove(eraser);
-            toPaint.add(new ShapeContainer(eraser.getColor(),eraser.getShapes(), PaintType.PENCIL));
+            toPaint.add(new ShapeContainer(eraser.getColor(),eraser.getShapes(), PaintType.PENCIL, shapeMaker.getStroke()));
         }
         currentShapeToDraw = null;
         repaint();

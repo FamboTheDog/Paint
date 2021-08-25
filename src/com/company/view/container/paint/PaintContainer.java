@@ -22,7 +22,7 @@ public class PaintContainer extends JPanel {
         scrollPaneContainer.setBackground(this.getBackground());
 
         JScrollPane scrollPane = new JScrollPane(scrollPaneContainer);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // removes the ugly outline that JScrollPane creates
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
