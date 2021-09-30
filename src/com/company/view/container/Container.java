@@ -16,8 +16,8 @@ import java.awt.event.KeyEvent;
 public class Container extends JPanel {
 
     @Getter private final ControlY controlY;
-    public Container(Paint paint, Toolbar toolbar){
 
+    public Container(Paint paint, Toolbar toolbar){
         controlY = new ControlY(paint);
         createKeyBinding("CONTROL_Y", KeyStroke.getKeyStroke('Y',
                 InputEvent.CTRL_DOWN_MASK), controlY);

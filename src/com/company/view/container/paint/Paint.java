@@ -18,7 +18,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
+* Is displayed on the frame!
+* Together with ShapeMaker controls the drawing
+* */
 public class Paint extends JPanel implements MouseListener, MouseMotionListener {
 
     @Getter private final ArrayList<ShapeContainer> toPaint = new ArrayList<>();
@@ -33,6 +36,10 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     @Getter @Setter private PaintContainer paintC;
 
+    @Getter @Setter double scale = 1;
+
+    @Getter private ZoomManager zoomManager;
+
     public Paint(ShapeMaker currentShape){
         this.shapeMaker = currentShape;
 
@@ -42,6 +49,9 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.zoomManager = new ZoomManager(this);
+        System.out.println(getZoomManager());
+        this.addMouseWheelListener(zoomManager);
     }
 
     @Override
@@ -51,6 +61,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
         gd.setColor(Color.white);
         gd.fillRect(0, 0, getWidth(), getHeight());
+
+        gd.scale(scale, scale);
 
         Stroke defaultStroke = gd.getStroke();
 
@@ -114,8 +126,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
-        shapeMaker.setStartX(e.getX());
-        shapeMaker.setStartY(e.getY());
+        shapeMaker.setStartX((int) (e.getX() / scale));
+        shapeMaker.setStartY((int) (e.getY() / scale));
 
         ctrlY.reset();
 
@@ -149,8 +161,8 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
     }
 
     public void addToCurrentPaint(MouseEvent e){
-        shapeMaker.setX(e.getX());
-        shapeMaker.setY(e.getY());
+        shapeMaker.setX((int) (e.getX() / scale));
+        shapeMaker.setY((int) (e.getY() / scale));
 
         ShapeContainer newShape = shapeMaker.makeBrush();
         if(newShape != null) currentShapeToFill.getShapes().add(newShape);

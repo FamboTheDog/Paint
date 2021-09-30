@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class PaintContainer extends JPanel {
 
-
     @Getter private final JPanel scrollPaneContainer;
+
     public PaintContainer(Paint paint){
         paint.setPaintC(this);
         this.setLayout(new BorderLayout());
@@ -25,6 +25,8 @@ public class PaintContainer extends JPanel {
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); // removes the ugly outline that JScrollPane creates
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        scrollPaneContainer.addMouseWheelListener(paint.getZoomManager());
 
         this.add(scrollPane, BorderLayout.CENTER);
     }
