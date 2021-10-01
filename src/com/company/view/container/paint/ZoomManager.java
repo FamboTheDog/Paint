@@ -12,8 +12,8 @@ public class ZoomManager implements MouseWheelListener {
     private Paint paint;
 
     // will probably be editing after play-testing, these variables are made to make finding these values easier
-    final double maxBound = 4;
-    final double minBound = 0.5;
+    final double maxBound = 10;
+    final double minBound = 1;
 
     ZoomManager(Paint paint) {
         this.paint = paint;
@@ -23,18 +23,23 @@ public class ZoomManager implements MouseWheelListener {
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        // TODO changing the scale should also change the size of paintContainer
         this.scale -= e.getPreciseWheelRotation();
         if (scale < minBound) scale = minBound;
-        if (scale > maxBound) scale = maxBound;
+        else if (scale > maxBound) scale = maxBound;
+        else {
+            System.out.println((int) Math.ceil((paint.getWidth()  / scale)));
+            System.out.println((int) Math.ceil((paint.getHeight() / scale)));
+            System.out.println("_____");
+            System.out.println(scale);
 
-        System.out.println(scale);
-        System.out.println((int) Math.ceil((paint.getWidth()  / scale)));
-        System.out.println((int) Math.ceil((paint.getHeight() / scale)));
-        System.out.println("_____");
-
-        // paint.setSize(new Dimension((int) Math.ceil((paint.getWidth() / scale)), (int) Math.ceil((paint.getHeight() / scale))));
-        paint.setScale(this.scale);
-        paint.repaint();
+            Dimension scaledDimension = new Dimension((int) Math.ceil((paint.getCurrentSize().getWidth() * scale)), (int) Math.ceil((paint.getCurrentSize().getHeight() * scale)));
+            paint.setSize(scaledDimension);
+            paint.getPaintC().getScrollPaneContainer().setPreferredSize(scaledDimension);
+            paint.setScale(this.scale);
+            paint.revalidate();
+            paint.repaint();
+            paint.getPaintC().getScrollPaneContainer().revalidate();
+            paint.getPaintC().getScrollPaneContainer().repaint();
+        }
     }
 }

@@ -20,6 +20,7 @@ public class PaintContainer extends JPanel {
         scrollPaneContainer.add(paint);
         scrollPaneContainer.setBorder(this.getBorder());
         scrollPaneContainer.setBackground(this.getBackground());
+        scrollPaneContainer.setPreferredSize(new Dimension(640,480));
 
         JScrollPane scrollPane = new JScrollPane(scrollPaneContainer);
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); // removes the ugly outline that JScrollPane creates

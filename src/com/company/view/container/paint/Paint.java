@@ -38,19 +38,20 @@ public class Paint extends JPanel implements MouseListener, MouseMotionListener 
 
     @Getter @Setter double scale = 1;
 
-    @Getter private ZoomManager zoomManager;
+    @Getter private final ZoomManager zoomManager;
+
+    @Getter @Setter private Dimension currentSize = new Dimension(640,480);
 
     public Paint(ShapeMaker currentShape){
         this.shapeMaker = currentShape;
 
-        Dimension defaultSize = new Dimension(640,480);
+        Dimension defaultSize = currentSize;
 
         this.setSize(defaultSize);
 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.zoomManager = new ZoomManager(this);
-        System.out.println(getZoomManager());
         this.addMouseWheelListener(zoomManager);
     }
 

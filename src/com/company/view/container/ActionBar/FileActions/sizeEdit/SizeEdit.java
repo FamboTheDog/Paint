@@ -21,8 +21,10 @@ public class SizeEdit implements ActionListener {
         int popup = JOptionPane.showConfirmDialog(Main.getFrame(), panel, "Select your width and height", JOptionPane.OK_CANCEL_OPTION);
 
         if(popup == JOptionPane.OK_OPTION){
-            paint.setSize(new Dimension(panel.getSelectedWidth(), panel.getSelectedHeight()));
-            paint.getPaintC().getScrollPaneContainer().setPreferredSize(new Dimension(panel.getSelectedWidth(), panel.getSelectedHeight()));
+            Dimension selectedWidth = new Dimension(panel.getSelectedWidth(), panel.getSelectedHeight());
+            paint.setSize(selectedWidth);
+            paint.setCurrentSize(selectedWidth);
+            paint.getPaintC().getScrollPaneContainer().setPreferredSize(selectedWidth);
             paint.getPaintC().revalidate();
             paint.getPaintC().repaint();
         }

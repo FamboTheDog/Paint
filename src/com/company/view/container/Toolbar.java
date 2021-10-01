@@ -52,25 +52,25 @@ public class Toolbar extends JPanel implements ChangeListener {
         strokeSetterText.setVisible(false);
 
         shapeButtons = new JButton[3];
-        JButton lineDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.LINE)));
+        JButton lineDraw = buttonMaker(action(e->currentShape.setMode(ShapeModes.LINE)));
         setIcon(lineDraw, "line.png", "Line");
         shapes.add(lineDraw);
         lineDraw.setBackground(clickedColor);
         shapeButtons[0] = lineDraw;
 
-        JButton rectangleDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.RECTANGLE)));
+        JButton rectangleDraw = buttonMaker(action(e->currentShape.setMode(ShapeModes.RECTANGLE)));
         setIcon(rectangleDraw, "rectangle.png", "Rectangle");
         shapes.add(rectangleDraw);
         shapeButtons[1] = rectangleDraw;
 
-        JButton circleDraw = buttonMaker("", action(e->currentShape.setMode(ShapeModes.CIRCLE)));
+        JButton circleDraw = buttonMaker(action(e->currentShape.setMode(ShapeModes.CIRCLE)));
         setIcon(circleDraw, "circle.png", "Circle");
         shapes.add(circleDraw);
         shapeButtons[2] = circleDraw;
 
         this.add(shapes);
 
-        pencil = buttonMaker("", action(e-> {
+        pencil = buttonMaker(action(e-> {
             currentShape.setMode(ShapeModes.BRUSH);
             currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 
@@ -86,13 +86,13 @@ public class Toolbar extends JPanel implements ChangeListener {
         this.add(strokeSetterText);
         this.add(strokeSetter);
 
-        bucket = buttonMaker("", action(e->currentShape.setMode(ShapeModes.BUCKET)));
+        bucket = buttonMaker(action(e->currentShape.setMode(ShapeModes.BUCKET)));
         setIcon(bucket, "bucket.png", "Bucket");
 
 
         this.add(bucket);
 
-         eraser = buttonMaker("", action(e->{
+         eraser = buttonMaker(action(e->{
             currentShape.setMode(ShapeModes.ERASER);
             currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 
@@ -143,7 +143,7 @@ public class Toolbar extends JPanel implements ChangeListener {
     }
 
     public void colorChooserMaker(ActionListener action, String text, Color bgColor){
-        JButton colorChooser = buttonMaker("", action);
+        JButton colorChooser = buttonMaker(action);
         colorChooser.setBackground(bgColor);
         colorChooser.setFocusPainted(false);
         colorChooser.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -178,8 +178,8 @@ public class Toolbar extends JPanel implements ChangeListener {
         };
     }
 
-    private JButton buttonMaker(String name, ActionListener action){
-        JButton newButton = new JButton(name);
+    private JButton buttonMaker(ActionListener action){
+        JButton newButton = new JButton();
         newButton.addActionListener(action);
         newButton.setFocusPainted(false);
         newButton.setPreferredSize(new Dimension(35,35));

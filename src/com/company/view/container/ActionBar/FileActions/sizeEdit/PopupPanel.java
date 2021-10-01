@@ -15,8 +15,8 @@ public class PopupPanel extends JPanel {
         this.selectedWidth = paint.getWidth();
         this.selectedHeight = paint.getHeight();
 
-        SpinnerModel widthValues = new SpinnerNumberModel(paint.getWidth(), 1, 15000, 1);
-        SpinnerModel heightValues = new SpinnerNumberModel(paint.getHeight(), 1, 15000, 1);
+        SpinnerModel widthValues  = new SpinnerNumberModel(paint.getWidth(), 1, Integer.MAX_VALUE, 1);
+        SpinnerModel heightValues = new SpinnerNumberModel(paint.getHeight(), 1, Integer.MAX_VALUE, 1);
 
         JSpinner width = new JSpinner(widthValues);
         width.addChangeListener(e -> {
