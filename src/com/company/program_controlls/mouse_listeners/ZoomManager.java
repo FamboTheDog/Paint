@@ -1,5 +1,6 @@
-package com.company.view.container.paint;
+package com.company.program_controlls.mouse_listeners;
 
+import com.company.view.container.paint.Paint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,13 +10,13 @@ import java.awt.event.MouseWheelListener;
 
 public class ZoomManager implements MouseWheelListener {
 
-    private Paint paint;
+    private com.company.view.container.paint.Paint paint;
 
     // will probably be editing after play-testing, these variables are made to make finding these values easier
     final double maxBound = 10;
     final double minBound = 1;
 
-    ZoomManager(Paint paint) {
+    public ZoomManager(Paint paint) {
         this.paint = paint;
     }
 

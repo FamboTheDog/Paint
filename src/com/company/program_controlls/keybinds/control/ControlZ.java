@@ -1,4 +1,4 @@
-package com.company.keybinds.control;
+package com.company.program_controlls.keybinds.control;
 
 import com.company.shapeMaker.ShapeContainer;
 import com.company.view.container.paint.Paint;

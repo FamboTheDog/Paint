@@ -1,5 +1,6 @@
-package com.company.keybinds.control;
+package com.company.program_controlls.keybinds.control;
 
+import com.company.view.container.ActionBar.FileActions.SaveImage;
 import com.company.view.container.paint.Paint;
 import lombok.AllArgsConstructor;
 
@@ -13,6 +14,7 @@ public class ControlS extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        paint.createImage();
+        SaveImage imageSaver = new SaveImage(paint);
+        imageSaver.createImage();
     }
 }

@@ -1,4 +1,4 @@
-package com.company.keybinds.paintShortcuts;
+package com.company.program_controlls.keybinds.paintShortcuts;
 
 import com.company.view.container.Toolbar;
 import lombok.AllArgsConstructor;

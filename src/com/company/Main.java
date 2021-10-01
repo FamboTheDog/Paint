@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) {
 
         f.setTitle(APP_NAME);
-        f.setSize(new Dimension(800, 600));
+        f.setSize(new Dimension(800, 700));
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
