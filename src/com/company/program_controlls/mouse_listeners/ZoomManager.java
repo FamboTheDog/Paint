@@ -37,6 +37,7 @@ public class ZoomManager implements MouseWheelListener {
             paint.setSize(scaledDimension);
             paint.getPaintC().getScrollPaneContainer().setPreferredSize(scaledDimension);
             paint.setScale(this.scale);
+            paint.getMouse().setScale(this.scale);
             paint.revalidate();
             paint.repaint();
             paint.getPaintC().getScrollPaneContainer().revalidate();

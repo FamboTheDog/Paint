@@ -1,7 +1,7 @@
 package com.company.view.container.ActionBar;
 
-import com.company.view.container.ActionBar.FileActions.LoadImage;
-import com.company.view.container.ActionBar.FileActions.SaveImage;
+import com.company.view.container.ActionBar.image_actions.LoadImage;
+import com.company.view.container.ActionBar.image_actions.SaveImage;
 import com.company.view.container.ActionBar.FileActions.sizeEdit.SizeEdit;
 import com.company.view.container.paint.Paint;
 

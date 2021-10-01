@@ -22,11 +22,7 @@ import java.util.ArrayList;
 * */
 public class Paint extends JPanel {
 
-    @Getter private final ArrayList<ShapeContainer> toPaint = new ArrayList<>();
-
     private final ShapeMaker shapeMaker;
-
-    private ControlY ctrlY;
 
     @Getter @Setter private PaintContainer paintC;
 
@@ -36,7 +32,7 @@ public class Paint extends JPanel {
 
     @Getter @Setter private Dimension currentSize = new Dimension(640,480);
 
-    PaintMouseListeners mouse;
+    @Getter PaintMouseListeners mouse;
 
     public Paint(ShapeMaker currentShape){
         this.shapeMaker = currentShape;
@@ -45,7 +41,7 @@ public class Paint extends JPanel {
 
         this.setSize(defaultSize);
 
-        mouse = new PaintMouseListeners(shapeMaker, this, ctrlY);
+        mouse = new PaintMouseListeners(shapeMaker, this);
 
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
@@ -87,7 +83,7 @@ public class Paint extends JPanel {
     }
 
     public void addToLoadedImages(BufferedImage img){
-        toPaint.add(new ShapeContainer(shapeMaker.getColor(), img, PaintType.IMAGE));
+        mouse.getToPaint().add(new ShapeContainer(shapeMaker.getColor(), img, PaintType.IMAGE));
     }
 
     public void setCtrlY(ControlY ctrlY){

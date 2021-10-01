@@ -39,10 +39,9 @@ public class PaintMouseListeners extends MouseAdapter implements MouseMotionList
 
     Paint paint;
 
-    public PaintMouseListeners(ShapeMaker shapeMaker, Paint paint, ControlY ctrlY) {
+    public PaintMouseListeners(ShapeMaker shapeMaker, Paint paint) {
         this.shapeMaker = shapeMaker;
         this.paint = paint;
-        this.ctrlY = ctrlY;
     }
 
     @Override
