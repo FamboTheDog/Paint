@@ -1,4 +1,4 @@
-package com.company.keybinds.arrows;
+package com.company.program_controlls.keybinds.arrows;
 
 import com.company.view.container.Toolbar;
 import lombok.AllArgsConstructor;

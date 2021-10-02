@@ -1,11 +1,11 @@
 package com.company.view.container;
 
-import com.company.keybinds.arrows.LeftArrow;
-import com.company.keybinds.arrows.RightArrow;
-import com.company.keybinds.control.ControlS;
-import com.company.keybinds.control.ControlY;
-import com.company.keybinds.control.ControlZ;
-import com.company.keybinds.paintShortcuts.Template;
+import com.company.program_controlls.keybinds.arrows.LeftArrow;
+import com.company.program_controlls.keybinds.arrows.RightArrow;
+import com.company.program_controlls.keybinds.control.ControlS;
+import com.company.program_controlls.keybinds.control.ControlY;
+import com.company.program_controlls.keybinds.control.ControlZ;
+import com.company.program_controlls.keybinds.paintShortcuts.Template;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.company.keybinds.control;
+package com.company.program_controlls.keybinds.control;
 
 import com.company.shapeMaker.ShapeContainer;
 import com.company.view.container.paint.Paint;
@@ -20,7 +20,7 @@ public class ControlY extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(whatToRevive.size() > 0 ){
-            paint.getToPaint().add(whatToRevive.get(whatToRevive.size() - 1 ));
+            paint.getMouse().getToPaint().add(whatToRevive.get(whatToRevive.size() - 1 ));
             whatToRevive.remove(whatToRevive.size() - 1);
         }
         paint.repaint();

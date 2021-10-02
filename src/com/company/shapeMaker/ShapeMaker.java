@@ -20,7 +20,7 @@ public class ShapeMaker {
     private int x;
     private int y;
 
-    @Getter private float strokeWidth;
+    @Getter private float strokeWidth = 5;
 
     @Getter private Stroke stroke;
 
@@ -98,7 +98,7 @@ public class ShapeMaker {
             default:
                 return null;
         }
-        return new ShapeContainer(color, newShape, PaintType.DRAW);
+        return new ShapeContainer(color, newShape, PaintType.DRAW, this.stroke);
     }
 
     public ShapeContainer makeBrush(){

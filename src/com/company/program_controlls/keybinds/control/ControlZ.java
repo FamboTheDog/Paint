@@ -1,4 +1,4 @@
-package com.company.keybinds.control;
+package com.company.program_controlls.keybinds.control;
 
 import com.company.shapeMaker.ShapeContainer;
 import com.company.view.container.paint.Paint;
@@ -19,7 +19,7 @@ public class ControlZ extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<ShapeContainer> toPaintCopy = paint.getToPaint();
+        ArrayList<ShapeContainer> toPaintCopy = paint.getMouse().getToPaint();
         if(toPaintCopy.size() > 0){
             ShapeContainer removedContainer = toPaintCopy.get(toPaintCopy.size() - 1);
 

@@ -12,21 +12,13 @@ import java.awt.*;
 
 public class Main {
 
-    /* TODO
-        - make an ability to zoom in and out
-        - make stroke setter apply to draw shapes as well
-        - the text, that should appear when the program can't load images, doesn't load properly
-        - profit???
-    */
-
-
     private static final JFrame f = new JFrame();
     private static final String APP_NAME = "Paint";
 
     public static void main(String[] args) {
 
         f.setTitle(APP_NAME);
-        f.setSize(new Dimension(800, 600));
+        f.setSize(new Dimension(800, 700));
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
