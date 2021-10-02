@@ -82,7 +82,7 @@ public class PaintMouseListeners extends MouseAdapter implements MouseMotionList
         if(shapeMaker.getMode() == ShapeModes.LINE || shapeMaker.getMode() == ShapeModes.RECTANGLE) {
             toPaint.remove(currentShapeToDraw);
             if(currentShapeToDraw != null)
-                toPaint.add(new ShapeContainer(currentShapeToDraw.getColor(), currentShapeToDraw.getShape(), currentShapeToDraw.getPaintType()));
+                toPaint.add(new ShapeContainer(currentShapeToDraw.getColor(), currentShapeToDraw.getShape(), currentShapeToDraw.getPaintType(), currentShapeToDraw.getStroke()));
         }else if(shapeMaker.getMode() == ShapeModes.BRUSH) {
             toPaint.remove(currentShapeToFill);
             toPaint.add(new ShapeContainer(currentShapeToFill.getColor(), currentShapeToFill.getShapes(), PaintType.PENCIL, currentShapeToFill.getStroke()));

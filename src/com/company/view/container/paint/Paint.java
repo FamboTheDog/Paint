@@ -72,7 +72,10 @@ public class Paint extends JPanel {
             }else{
                 gd.setColor(painting.getColor());
                 switch (painting.getPaintType()){
-                    case DRAW -> gd.draw(painting.getShape());
+                    case DRAW -> {
+                        gd.draw(painting.getShape());
+                        gd.setStroke(painting.getStroke());
+                    }
                     case IMAGE -> gd.drawImage(painting.getImg(), 0, 0, null);
                 }
             }

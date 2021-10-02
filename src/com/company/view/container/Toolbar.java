@@ -46,24 +46,32 @@ public class Toolbar extends JPanel implements ChangeListener {
         SpinnerModel strokeValues = new SpinnerNumberModel(5, 1, 99, 1);
         strokeSetter = new JSpinner(strokeValues);
         strokeSetter.addChangeListener(this);
-        strokeSetter.setVisible(false);
 
         strokeSetterText = new JLabel("Stroke:");
-        strokeSetterText.setVisible(false);
 
         shapeButtons = new JButton[3];
-        JButton lineDraw = buttonMaker(action(e->currentShape.setMode(ShapeModes.LINE)));
+        JButton lineDraw = buttonMaker(action(e -> {
+            currentShape.setMode(ShapeModes.LINE);
+            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
+        }));
         setIcon(lineDraw, "line.png", "Line");
         shapes.add(lineDraw);
         lineDraw.setBackground(clickedColor);
+        lineDraw.doClick();
         shapeButtons[0] = lineDraw;
 
-        JButton rectangleDraw = buttonMaker(action(e->currentShape.setMode(ShapeModes.RECTANGLE)));
+        JButton rectangleDraw = buttonMaker(action(e -> {
+            currentShape.setMode(ShapeModes.RECTANGLE);
+            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
+        }));
         setIcon(rectangleDraw, "rectangle.png", "Rectangle");
         shapes.add(rectangleDraw);
         shapeButtons[1] = rectangleDraw;
 
-        JButton circleDraw = buttonMaker(action(e->currentShape.setMode(ShapeModes.CIRCLE)));
+        JButton circleDraw = buttonMaker(action(e -> {
+            currentShape.setMode(ShapeModes.CIRCLE);
+            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
+        }));
         setIcon(circleDraw, "circle.png", "Circle");
         shapes.add(circleDraw);
         shapeButtons[2] = circleDraw;
@@ -77,8 +85,6 @@ public class Toolbar extends JPanel implements ChangeListener {
             currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(),
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
-            strokeSetter.setVisible(true);
-            strokeSetterText.setVisible(true);
         }));
         setIcon(pencil, "pencil.png", "Pencil");
 
@@ -96,10 +102,7 @@ public class Toolbar extends JPanel implements ChangeListener {
             currentShape.setMode(ShapeModes.ERASER);
             currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
 
-             currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-
-            strokeSetter.setVisible(true);
-            strokeSetterText.setVisible(true);
+            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
         }));
 
         setIcon(eraser, "eraser.png", "Eraser");
@@ -138,6 +141,7 @@ public class Toolbar extends JPanel implements ChangeListener {
                     Image.SCALE_SMOOTH); // scale the image so it fits nicely into the button
             button.setIcon(new ImageIcon(icon));
         } catch (IOException e) {
+            button.setPreferredSize(null);
             button.setText(backupText);
         }
     }
@@ -172,8 +176,6 @@ public class Toolbar extends JPanel implements ChangeListener {
             JButton source = (JButton) e.getSource();
             source.setBackground(clickedColor);
 
-            strokeSetter.setVisible(false);
-            strokeSetterText.setVisible(false);
             action.actionPerformed(e);
         };
     }
@@ -197,6 +199,7 @@ public class Toolbar extends JPanel implements ChangeListener {
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             case ERASER -> currentShape.setStroke(new BasicStroke(
                     currentShape.getStrokeWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+            case RECTANGLE, CIRCLE, LINE -> currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
         }
     }
 }
