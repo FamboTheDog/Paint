@@ -7,9 +7,13 @@ import java.awt.*;
 
 public class PaintContainer extends JPanel {
 
-    @Getter private final JPanel scrollPaneContainer;
+    @Getter
+    private final JPanel scrollPaneContainer;
+    @Getter
+    private final Paint paint;
 
     public PaintContainer(Paint paint){
+        this.paint = paint;
         paint.setPaintC(this);
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));

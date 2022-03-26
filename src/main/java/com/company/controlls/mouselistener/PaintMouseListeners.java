@@ -31,13 +31,18 @@ public class PaintMouseListeners extends MouseAdapter implements MouseMotionList
 
     private final ShapeMaker shapeMaker;
 
-    @Setter private ControlY ctrlY;
+    @Setter
+    private ControlY ctrlY;
 
-    @Getter @Setter private PaintContainer paintC;
+    @Getter
+    @Setter
+    private PaintContainer paintC;
 
-    @Getter @Setter double scale = 1;
+    @Getter
+    @Setter
+    double scale = 1;
 
-    Paint paint;
+    private final Paint paint;
 
     public PaintMouseListeners(ShapeMaker shapeMaker, Paint paint) {
         this.shapeMaker = shapeMaker;
@@ -64,7 +69,6 @@ public class PaintMouseListeners extends MouseAdapter implements MouseMotionList
         shapeMaker.setStartY((int) (e.getY() / scale));
 
         ctrlY.reset();
-
 
         if(shapeMaker.getMode() == ShapeModes.ERASER){
             eraser = new ShapeContainer(shapeMaker.getBgColor(), new ArrayList<>(), PaintType.PENCIL, shapeMaker.getStroke());

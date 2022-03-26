@@ -1,8 +1,9 @@
 package com.company;
 
+import com.company.controlls.keybind.control.ControlY;
 import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.actionbar.ActionBar;
-import com.company.view.container.Container;
+import com.company.view.container.MainPanel;
 import com.company.view.container.paint.Paint;
 import com.company.view.container.Toolbar;
 import com.company.view.container.paint.PaintContainer;
@@ -28,19 +29,11 @@ public class Main {
 
         Toolbar toolbar = new Toolbar(shapeMaker);
 
-        Container container = new Container(paint, toolbar);
-        container.setLayout(new BorderLayout());
-        frame.add(container);
-
-        paint.setCtrlY(container.getControlY());
-
         ActionBar actionBar = new ActionBar(paint);
-        container.add(actionBar, BorderLayout.NORTH);
 
-        container.add(paintContainer, BorderLayout.CENTER);
-        container.add(toolbar, BorderLayout.SOUTH);
-
-        container.requestFocusInWindow();
+        MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar);
+        frame.add(mainPanel);
+        paint.setCtrlY(mainPanel.getControlY());
 
         frame.revalidate();
         frame.repaint();

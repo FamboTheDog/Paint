@@ -6,20 +6,46 @@ import com.company.controlls.keybind.control.ControlS;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.keybind.control.ControlZ;
 import com.company.controlls.keybind.paintShortcuts.Template;
+import com.company.view.container.actionbar.ActionBar;
 import com.company.view.container.paint.Paint;
+import com.company.view.container.paint.PaintContainer;
 import lombok.Getter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-public class Container extends JPanel {
+public class MainPanel extends JPanel {
 
     @Getter
     private final ControlY controlY;
 
-    public Container(Paint paint, Toolbar toolbar){
-        controlY = new ControlY(paint);
+    public MainPanel(PaintContainer paintContainer, Toolbar toolbar, ActionBar actionBar){
+        this.controlY = new ControlY(paintContainer.getPaint());
+        addKeyboardShortcuts(paintContainer.getPaint(), toolbar);
+        this.setLayout(new BorderLayout());
+        this.add(actionBar, BorderLayout.NORTH);
+        this.add(paintContainer, BorderLayout.CENTER);
+        this.add(toolbar, BorderLayout.SOUTH);
+        this.requestFocusInWindow();
+    }
+
+    private void addKeyboardShortcuts(Paint paint, Toolbar toolbar) {
+        addControlKeyShortcuts(paint);
+        addToolShortcuts(toolbar);
+        addArrowShortcuts(toolbar);
+    }
+
+    private void addArrowShortcuts(Toolbar toolbar) {
+        LeftArrow la = new LeftArrow(toolbar);
+        createKeyBinding("LEFT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), la);
+
+        RightArrow ra = new RightArrow(toolbar);
+        createKeyBinding("RIGHT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), ra);
+    }
+
+    private void addControlKeyShortcuts(Paint paint) {
         createKeyBinding("CONTROL_Y", KeyStroke.getKeyStroke('Y',
                 InputEvent.CTRL_DOWN_MASK), controlY);
 
@@ -29,14 +55,6 @@ public class Container extends JPanel {
 
         ControlS controlS = new ControlS(paint);
         createKeyBinding("CONTROL_S", KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK), controlS);
-
-        addToolShortcuts(toolbar);
-
-        LeftArrow la = new LeftArrow(toolbar);
-        createKeyBinding("LEFT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), la);
-
-        RightArrow ra = new RightArrow(toolbar);
-        createKeyBinding("RIGHT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), ra);
     }
 
     private void addToolShortcuts(Toolbar toolbar) {
@@ -54,7 +72,5 @@ public class Container extends JPanel {
         this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(keyStroke, name);
         this.getActionMap().put(name, action);
     }
-
-
 
 }
