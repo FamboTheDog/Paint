@@ -1,6 +1,6 @@
-package com.company.program_controlls.keybinds.control;
+package com.company.controlls.keybind.control;
 
-import com.company.shapeMaker.ShapeContainer;
+import com.company.shapemaker.ShapeContainer;
 import com.company.view.container.paint.Paint;
 
 import javax.swing.*;

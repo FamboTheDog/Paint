@@ -1,4 +1,4 @@
-package com.company.program_controlls.mouse_listeners;
+package com.company.controlls.mouselistener;
 
 import com.company.view.container.paint.Paint;
 import lombok.Getter;

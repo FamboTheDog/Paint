@@ -1,4 +1,4 @@
-package com.company.shapeMaker;
+package com.company.shapemaker;
 
 import com.company.view.container.paint.PaintType;
 import lombok.*;

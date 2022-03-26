@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.shapeMaker.ShapeMaker;
-import com.company.view.container.ActionBar.ActionBar;
+import com.company.shapemaker.ShapeMaker;
+import com.company.view.container.actionbar.ActionBar;
 import com.company.view.container.Container;
 import com.company.view.container.paint.Paint;
 import com.company.view.container.Toolbar;
@@ -12,45 +12,42 @@ import java.awt.*;
 
 public class Main {
 
-    private static final JFrame f = new JFrame();
+    private static final JFrame frame = new JFrame();
     private static final String APP_NAME = "Paint";
 
     public static void main(String[] args) {
+        frame.setTitle(APP_NAME);
+        frame.setSize(new Dimension(800, 700));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
-        f.setTitle(APP_NAME);
-        f.setSize(new Dimension(800, 700));
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
+        ShapeMaker shapeMaker = new ShapeMaker();
+        Paint paint = new Paint(shapeMaker);
+        PaintContainer paintContainer = new PaintContainer(paint);
 
-        ShapeMaker currentShape = new ShapeMaker();
-
-        Paint paint = new Paint(currentShape);
-
-        PaintContainer paintC = new PaintContainer(paint);
-
-        Toolbar toolbar = new Toolbar(currentShape);
+        Toolbar toolbar = new Toolbar(shapeMaker);
 
         Container container = new Container(paint, toolbar);
         container.setLayout(new BorderLayout());
-        f.add(container);
+        frame.add(container);
 
         paint.setCtrlY(container.getControlY());
 
         ActionBar actionBar = new ActionBar(paint);
         container.add(actionBar, BorderLayout.NORTH);
 
-        container.add(paintC, BorderLayout.CENTER);
+        container.add(paintContainer, BorderLayout.CENTER);
         container.add(toolbar, BorderLayout.SOUTH);
 
         container.requestFocusInWindow();
 
-        f.revalidate();
-        f.repaint();
+        frame.revalidate();
+        frame.repaint();
     }
 
     public static JFrame getFrame(){
-        return Main.f;
+        return Main.frame;
     }
 
 }

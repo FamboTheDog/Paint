@@ -1,8 +1,8 @@
-package com.company.view.container.ActionBar;
+package com.company.view.container.actionbar;
 
-import com.company.view.container.ActionBar.image_actions.LoadImage;
-import com.company.view.container.ActionBar.image_actions.SaveImage;
-import com.company.view.container.ActionBar.FileActions.sizeEdit.SizeEdit;
+import com.company.view.container.actionbar.image_actions.LoadImage;
+import com.company.view.container.actionbar.image_actions.SaveImage;
+import com.company.view.container.actionbar.FileActions.sizeEdit.SizeEdit;
 import com.company.view.container.paint.Paint;
 
 import javax.swing.*;

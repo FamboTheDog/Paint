@@ -1,8 +1,8 @@
 package com.company.view.container;
 
 import com.company.Main;
-import com.company.shapeMaker.ShapeMaker;
-import com.company.shapeMaker.ShapeModes;
+import com.company.shapemaker.ShapeMaker;
+import com.company.shapemaker.ShapeModes;
 import lombok.Getter;
 
 import javax.imageio.ImageIO;

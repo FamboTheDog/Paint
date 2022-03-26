@@ -1,4 +1,4 @@
-package com.company.view.container.ActionBar.FileActions.sizeEdit;
+package com.company.view.container.actionbar.FileActions.sizeEdit;
 
 import com.company.view.container.paint.Paint;
 import lombok.Getter;

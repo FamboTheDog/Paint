@@ -1,10 +1,9 @@
-package com.company.view.container.ActionBar.image_actions;
+package com.company.view.container.actionbar.image_actions;
 
 import com.company.Main;
 import com.company.view.container.paint.Paint;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

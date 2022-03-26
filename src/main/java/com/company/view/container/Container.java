@@ -1,11 +1,11 @@
 package com.company.view.container;
 
-import com.company.program_controlls.keybinds.arrows.LeftArrow;
-import com.company.program_controlls.keybinds.arrows.RightArrow;
-import com.company.program_controlls.keybinds.control.ControlS;
-import com.company.program_controlls.keybinds.control.ControlY;
-import com.company.program_controlls.keybinds.control.ControlZ;
-import com.company.program_controlls.keybinds.paintShortcuts.Template;
+import com.company.controlls.keybind.arrows.LeftArrow;
+import com.company.controlls.keybind.arrows.RightArrow;
+import com.company.controlls.keybind.control.ControlS;
+import com.company.controlls.keybind.control.ControlY;
+import com.company.controlls.keybind.control.ControlZ;
+import com.company.controlls.keybind.paintShortcuts.Template;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
 
@@ -15,7 +15,8 @@ import java.awt.event.KeyEvent;
 
 public class Container extends JPanel {
 
-    @Getter private final ControlY controlY;
+    @Getter
+    private final ControlY controlY;
 
     public Container(Paint paint, Toolbar toolbar){
         controlY = new ControlY(paint);
@@ -29,14 +30,7 @@ public class Container extends JPanel {
         ControlS controlS = new ControlS(paint);
         createKeyBinding("CONTROL_S", KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK), controlS);
 
-        Template p = new Template(toolbar, toolbar.getPencil());
-        createKeyBinding("PENCIL", KeyStroke.getKeyStroke('p'), p);
-
-        Template b = new Template(toolbar, toolbar.getBucket());
-        createKeyBinding("BUCKET", KeyStroke.getKeyStroke('b'), b);
-
-        Template e = new Template(toolbar, toolbar.getEraser());
-        createKeyBinding("ERASER", KeyStroke.getKeyStroke('e'), e);
+        addToolShortcuts(toolbar);
 
         LeftArrow la = new LeftArrow(toolbar);
         createKeyBinding("LEFT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), la);
@@ -45,7 +39,18 @@ public class Container extends JPanel {
         createKeyBinding("RIGHT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), ra);
     }
 
-    public void createKeyBinding(String name, KeyStroke keyStroke,Action action){
+    private void addToolShortcuts(Toolbar toolbar) {
+        Template p = new Template(toolbar, toolbar.getPencil());
+        createKeyBinding("PENCIL", KeyStroke.getKeyStroke('p'), p);
+
+        Template b = new Template(toolbar, toolbar.getBucket());
+        createKeyBinding("BUCKET", KeyStroke.getKeyStroke('b'), b);
+
+        Template e = new Template(toolbar, toolbar.getEraser());
+        createKeyBinding("ERASER", KeyStroke.getKeyStroke('e'), e);
+    }
+
+    private void createKeyBinding(String name, KeyStroke keyStroke,Action action){
         this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(keyStroke, name);
         this.getActionMap().put(name, action);
     }

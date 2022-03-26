@@ -1,6 +1,6 @@
-package com.company.program_controlls.keybinds.control;
+package com.company.controlls.keybind.control;
 
-import com.company.view.container.ActionBar.image_actions.SaveImage;
+import com.company.view.container.actionbar.image_actions.SaveImage;
 import com.company.view.container.paint.Paint;
 import lombok.AllArgsConstructor;
 

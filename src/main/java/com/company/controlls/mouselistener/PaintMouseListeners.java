@@ -1,9 +1,9 @@
-package com.company.program_controlls.mouse_listeners;
+package com.company.controlls.mouselistener;
 
-import com.company.program_controlls.keybinds.control.ControlY;
-import com.company.shapeMaker.ShapeContainer;
-import com.company.shapeMaker.ShapeMaker;
-import com.company.shapeMaker.ShapeModes;
+import com.company.controlls.keybind.control.ControlY;
+import com.company.shapemaker.ShapeContainer;
+import com.company.shapemaker.ShapeMaker;
+import com.company.shapemaker.ShapeModes;
 import com.company.view.container.paint.Paint;
 import com.company.view.container.paint.PaintContainer;
 import com.company.view.container.paint.PaintType;

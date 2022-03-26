@@ -1,21 +1,17 @@
 package com.company.view.container.paint;
 
-import com.company.program_controlls.keybinds.control.ControlY;
-import com.company.program_controlls.mouse_listeners.PaintMouseListeners;
-import com.company.program_controlls.mouse_listeners.ZoomManager;
-import com.company.shapeMaker.ShapeContainer;
-import com.company.shapeMaker.ShapeMaker;
-import com.company.shapeMaker.ShapeModes;
+import com.company.controlls.keybind.control.ControlY;
+import com.company.controlls.mouselistener.PaintMouseListeners;
+import com.company.controlls.mouselistener.ZoomManager;
+import com.company.shapemaker.ShapeContainer;
+import com.company.shapemaker.ShapeMaker;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+
 /*
 * Is displayed on the frame!
 * Together with ShapeMaker controls the drawing
