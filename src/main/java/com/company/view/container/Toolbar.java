@@ -29,11 +29,16 @@ public class Toolbar extends JPanel implements ChangeListener {
 
     private ArrayList<JButton> buttons;
 
-    @Getter private JButton pencil;
-    @Getter private JButton bucket;
-    @Getter private JButton eraser;
-    @Getter private JButton[] shapeButtons;
-    @Getter private final Color clickedColor = Color.decode("#c0cce4");
+    @Getter
+    private JButton pencil;
+    @Getter
+    private JButton bucket;
+    @Getter
+    private JButton eraser;
+    @Getter
+    private JButton[] shapeButtons;
+    @Getter
+    private final Color clickedColor = Color.decode("#c0cce4");
 
     private void init() {
         buttons = new ArrayList<>();
@@ -131,7 +136,6 @@ public class Toolbar extends JPanel implements ChangeListener {
                 source.setBackground(currentShape.getBgColor());
             }
         }, "BG", currentShape.getBgColor());
-
     }
 
     public void setIcon(JButton button, String imgName, String backupText){

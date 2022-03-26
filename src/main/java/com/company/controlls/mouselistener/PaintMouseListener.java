@@ -1,6 +1,7 @@
 package com.company.controlls.mouselistener;
 
 import com.company.controlls.keybind.control.ControlY;
+import com.company.drawable.Bucket;
 import com.company.shapemaker.ShapeContainer;
 import com.company.shapemaker.ShapeMaker;
 import com.company.shapemaker.ShapeModes;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 /*
 * This class should seriously be split into 2 classes!
 * */
-public class PaintMouseListeners extends MouseAdapter implements MouseMotionListener {
+public class PaintMouseListener extends MouseAdapter implements MouseMotionListener {
 
     @Getter
     private final ArrayList<ShapeContainer> toPaint = new ArrayList<>();
@@ -44,23 +45,9 @@ public class PaintMouseListeners extends MouseAdapter implements MouseMotionList
 
     private final Paint paint;
 
-    public PaintMouseListeners(ShapeMaker shapeMaker, Paint paint) {
+    public PaintMouseListener(ShapeMaker shapeMaker, Paint paint) {
         this.shapeMaker = shapeMaker;
         this.paint = paint;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(shapeMaker.getMode() == ShapeModes.BUCKET) {
-            BufferedImage bImg = new BufferedImage(paint.getWidth(), paint.getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D cg = bImg.createGraphics();
-            paint.paintAll(cg);
-
-            BufferedImage bucket = shapeMaker.bucket(bImg, e.getX(), e.getY(), paint.getWidth(), paint.getHeight());
-
-            toPaint.add(new ShapeContainer(shapeMaker.getColor(), bucket, PaintType.IMAGE));
-            paint.repaint();
-        }
     }
 
     @Override
@@ -123,8 +110,5 @@ public class PaintMouseListeners extends MouseAdapter implements MouseMotionList
         if(eraser != null) this.eraser.getShapes().add(eraser);
         paint.repaint();
     }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {}
 
 }

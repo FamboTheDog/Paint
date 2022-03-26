@@ -1,8 +1,9 @@
 package com.company.view.container.paint;
 
 import com.company.controlls.keybind.control.ControlY;
-import com.company.controlls.mouselistener.PaintMouseListeners;
+import com.company.controlls.mouselistener.PaintMouseListener;
 import com.company.controlls.mouselistener.ZoomManager;
+import com.company.drawable.Drawable;
 import com.company.shapemaker.ShapeContainer;
 import com.company.shapemaker.ShapeMaker;
 import lombok.Getter;
@@ -11,24 +12,32 @@ import lombok.Setter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-/*
-* Is displayed on the frame!
-* Together with ShapeMaker controls the drawing
-* */
 public class Paint extends JPanel {
 
     private final ShapeMaker shapeMaker;
 
-    @Getter @Setter private PaintContainer paintC;
+    @Getter
+    @Setter
+    private PaintContainer paintC;
 
-    @Getter @Setter double scale = 1;
+    @Getter
+    @Setter
+    double scale = 1;
 
-    @Getter private final ZoomManager zoomManager;
+    @Getter
+    private final ZoomManager zoomManager;
 
-    @Getter @Setter private Dimension currentSize = new Dimension(640,480);
+    @Getter
+    @Setter
+    private Dimension currentSize = new Dimension(640,480);
 
-    @Getter PaintMouseListeners mouse;
+    @Getter
+    private PaintMouseListener mouse;
+
+    @Getter
+    private ArrayList<Drawable> drawables = new ArrayList<>();
 
     public Paint(ShapeMaker currentShape){
         this.shapeMaker = currentShape;
@@ -37,7 +46,7 @@ public class Paint extends JPanel {
 
         this.setSize(defaultSize);
 
-        mouse = new PaintMouseListeners(shapeMaker, this);
+        mouse = new PaintMouseListener(shapeMaker, this);
 
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
@@ -56,6 +65,8 @@ public class Paint extends JPanel {
         gd.scale(scale, scale);
 
         Stroke defaultStroke = gd.getStroke();
+
+        drawables.forEach(drawable -> drawable.draw(gd));
 
         mouse.getToPaint().forEach((painting)->{
             if (painting.getShapes() != null){
@@ -76,7 +87,6 @@ public class Paint extends JPanel {
                 }
             }
         });
-
 
         gd.dispose();
     }
