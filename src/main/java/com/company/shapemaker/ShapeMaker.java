@@ -34,30 +34,6 @@ public class ShapeMaker {
         this.mode = ShapeModes.LINE;
     }
 
-    public BufferedImage bucket(BufferedImage img, int x, int y, int boundsX, int boundsY) {
-        // this is an easy-to-make variant of the flood fill algorithm
-        int startColor = img.getRGB(x, y);
-        if(startColor == color.getRGB()) return null;
-
-        Queue<Point> fill = new LinkedList<>();
-
-        fill.add(new Point(x, y));
-
-        while(!fill.isEmpty()){
-            Point n = fill.peek();
-            fill.remove(n);
-            if(n.x >= 0 && n.x < boundsX && n.y >= 0 && n.y < boundsY && img.getRGB(n.x, n.y) == startColor){
-                img.setRGB(n.x, n.y, color.getRGB());
-
-                fill.add(new Point(n.x + 1, n.y));
-                fill.add(new Point(n.x - 1, n.y));
-                fill.add(new Point(n.x, n.y + 1));
-                fill.add(new Point(n.x, n.y - 1));
-            }
-        }
-        return img;
-    }
-
     public ShapeContainer temporaryShape(){
         Shape newShape;
         switch (mode){

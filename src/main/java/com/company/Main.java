@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.mouselistener.BucketListener;
+import com.company.controlls.mouselistener.LineListener;
+import com.company.drawable.Line;
 import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.actionbar.ActionBar;
 import com.company.view.container.MainPanel;
@@ -27,7 +29,6 @@ public class Main {
         ShapeMaker shapeMaker = new ShapeMaker();
         Paint paint = new Paint(shapeMaker);
         PaintContainer paintContainer = new PaintContainer(paint);
-        paint.addMouseListener(new BucketListener(paint, shapeMaker));
 
         Toolbar toolbar = new Toolbar(shapeMaker);
 
@@ -36,6 +37,9 @@ public class Main {
         MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar);
         frame.add(mainPanel);
         paint.setCtrlY(mainPanel.getControlY());
+        LineListener lineListener = new LineListener(paint, mainPanel.getControlY());
+        paint.addMouseListener(lineListener);
+        paint.addMouseMotionListener(lineListener);
 
         frame.revalidate();
         frame.repaint();
