@@ -1,8 +1,15 @@
 package com.company.view.container;
 
 import com.company.Main;
+import com.company.controlls.keybind.control.ControlY;
+import com.company.controlls.mouselistener.BrushListener;
+import com.company.controlls.mouselistener.BucketListener;
+import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
+import com.company.controlls.mouselistener.shapelisneter.LineListener;
+import com.company.controlls.mouselistener.shapelisneter.RectangleListener;
 import com.company.shapemaker.ShapeMaker;
 import com.company.shapemaker.ShapeModes;
+import com.company.view.container.paint.Paint;
 import lombok.Getter;
 
 import javax.imageio.ImageIO;
@@ -17,11 +24,30 @@ import java.util.ArrayList;
 
 public class Toolbar extends JPanel implements ChangeListener {
 
-    ShapeMaker currentShape;
+    private final ShapeMaker currentShape;
+    private final Paint paint;
+    private final ControlY controlY;
 
-    public Toolbar(ShapeMaker currentShape){
+    private LineListener lineListener;
+    private RectangleListener rectangleListener;
+    private EllipseListener ellipseListener;
+    private BucketListener bucketListener;
+    private BrushListener brushListener;
+
+    public Toolbar(ShapeMaker currentShape, Paint paint, ControlY controlY){
         this.currentShape = currentShape;
+        this.paint = paint;
+        this.controlY = controlY;
+        initializeListeners();
         init();
+    }
+
+    private void initializeListeners() {
+        lineListener = new LineListener(paint, controlY);
+        rectangleListener = new RectangleListener(paint, controlY);
+        ellipseListener = new EllipseListener(paint, controlY);
+        bucketListener = new BucketListener(paint, currentShape);
+        brushListener = new BrushListener(paint, controlY);
     }
 
     private JLabel strokeSetterText;
@@ -45,47 +71,10 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         this.setBackground(Color.lightGray);
 
-        JPanel shapes = new JPanel();
-        shapes.setBorder(BorderFactory.createLineBorder(Color.black));
-
-        SpinnerModel strokeValues = new SpinnerNumberModel(5, 1, 99, 1);
-        strokeSetter = new JSpinner(strokeValues);
-        strokeSetter.addChangeListener(this);
-
-        strokeSetterText = new JLabel("Stroke:");
-
-        shapeButtons = new JButton[3];
-        JButton lineDraw = buttonMaker(action(e -> {
-            currentShape.setMode(ShapeModes.LINE);
-            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
-        }));
-        setIcon(lineDraw, "line.png", "Line");
-        shapes.add(lineDraw);
-        lineDraw.setBackground(clickedColor);
-        lineDraw.doClick();
-        shapeButtons[0] = lineDraw;
-
-        JButton rectangleDraw = buttonMaker(action(e -> {
-            currentShape.setMode(ShapeModes.RECTANGLE);
-            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
-        }));
-        setIcon(rectangleDraw, "rectangle.png", "Rectangle");
-        shapes.add(rectangleDraw);
-        shapeButtons[1] = rectangleDraw;
-
-        JButton circleDraw = buttonMaker(action(e -> {
-            currentShape.setMode(ShapeModes.CIRCLE);
-            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
-        }));
-        setIcon(circleDraw, "circle.png", "Circle");
-        shapes.add(circleDraw);
-        shapeButtons[2] = circleDraw;
-
-        this.add(shapes);
+        addShapeBox();
 
         pencil = buttonMaker(action(e-> {
-            currentShape.setMode(ShapeModes.BRUSH);
-            currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
+            paint.switchListener(brushListener);
 
             currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(),
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
@@ -97,12 +86,47 @@ public class Toolbar extends JPanel implements ChangeListener {
         this.add(strokeSetterText);
         this.add(strokeSetter);
 
-        bucket = buttonMaker(action(e->currentShape.setMode(ShapeModes.BUCKET)));
+        bucket = buttonMaker(action(e-> paint.switchListener(bucketListener)));
         setIcon(bucket, "bucket.png", "Bucket");
-
 
         this.add(bucket);
 
+        addColorListeners();
+    }
+
+    private void addShapeBox() {
+        JPanel shapes = new JPanel();
+        shapes.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        SpinnerModel strokeValues = new SpinnerNumberModel(5, 1, 99, 1);
+        strokeSetter = new JSpinner(strokeValues);
+        strokeSetter.addChangeListener(this);
+
+        strokeSetterText = new JLabel("Stroke:");
+
+        shapeButtons = new JButton[3];
+        JButton lineDraw = buttonMaker(action(e -> paint.switchListener(lineListener)));
+        setIcon(lineDraw, "line.png", "Line");
+        shapes.add(lineDraw);
+        lineDraw.setBackground(clickedColor);
+        lineDraw.doClick();
+        shapeButtons[0] = lineDraw;
+
+        JButton rectangleDraw = buttonMaker(action(e -> paint.switchListener(rectangleListener)));
+        setIcon(rectangleDraw, "rectangle.png", "Rectangle");
+        shapes.add(rectangleDraw);
+        shapeButtons[1] = rectangleDraw;
+
+        JButton circleDraw = buttonMaker(action(e -> paint.switchListener(ellipseListener)));
+        setIcon(circleDraw, "circle.png", "Circle");
+        shapes.add(circleDraw);
+        shapeButtons[2] = circleDraw;
+
+        this.add(shapes);
+
+    }
+
+    private void addColorListeners() {
         colorChooserMaker(e->{
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),

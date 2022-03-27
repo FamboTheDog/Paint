@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.mouselistener.BrushListener;
 import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
 import com.company.shapemaker.ShapeMaker;
@@ -27,17 +28,15 @@ public class Main {
         ShapeMaker shapeMaker = new ShapeMaker();
         Paint paint = new Paint(shapeMaker);
         PaintContainer paintContainer = new PaintContainer(paint);
+        ControlY controlY = new ControlY(paint);
 
-        Toolbar toolbar = new Toolbar(shapeMaker);
+        Toolbar toolbar = new Toolbar(shapeMaker, paint, controlY);
 
         ActionBar actionBar = new ActionBar(paint);
 
-        MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar);
+        MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar, controlY);
         frame.add(mainPanel);
         paint.setCtrlY(mainPanel.getControlY());
-        BrushListener lineListener = new BrushListener(paint, mainPanel.getControlY());
-        paint.addMouseListener(lineListener);
-        paint.addMouseMotionListener(lineListener);
 
         frame.revalidate();
         frame.repaint();

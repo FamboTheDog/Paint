@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Brush implements Drawable {
 
     @Getter
-    private ArrayList<Line2D.Double> brushes = new ArrayList<>();
+    private final ArrayList<Line2D.Double> brushes = new ArrayList<>();
 
     @Override
     public void draw(Graphics2D gd) {

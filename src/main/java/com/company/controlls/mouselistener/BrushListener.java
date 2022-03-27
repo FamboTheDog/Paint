@@ -21,6 +21,7 @@ public class BrushListener extends BaseMouseListener {
         brush = new Brush();
         brush.getBrushes().add(new Line2D.Double(startX, startY, startX, startY));
         paint.getDrawables().add(brush);
+        paint.repaint();
     }
 
     @Override
@@ -33,5 +34,6 @@ public class BrushListener extends BaseMouseListener {
 
         startX = x;
         startY = y;
+        paint.repaint();
     }
 }

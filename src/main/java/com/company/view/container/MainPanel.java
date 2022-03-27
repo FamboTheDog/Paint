@@ -21,8 +21,8 @@ public class MainPanel extends JPanel {
     @Getter
     private final ControlY controlY;
 
-    public MainPanel(PaintContainer paintContainer, Toolbar toolbar, ActionBar actionBar){
-        this.controlY = new ControlY(paintContainer.getPaint());
+    public MainPanel(PaintContainer paintContainer, Toolbar toolbar, ActionBar actionBar, ControlY controlY){
+        this.controlY = controlY;
         addKeyboardShortcuts(paintContainer.getPaint(), toolbar);
         this.setLayout(new BorderLayout());
         this.add(actionBar, BorderLayout.NORTH);

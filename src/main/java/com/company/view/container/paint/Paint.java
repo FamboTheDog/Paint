@@ -1,8 +1,10 @@
 package com.company.view.container.paint;
 
 import com.company.controlls.keybind.control.ControlY;
+import com.company.controlls.mouselistener.BaseMouseListener;
 import com.company.controlls.mouselistener.PaintMouseListener;
 import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
+import com.company.controlls.mouselistener.shapelisneter.LineListener;
 import com.company.drawable.Drawable;
 import com.company.shapemaker.ShapeContainer;
 import com.company.shapemaker.ShapeMaker;
@@ -11,6 +13,9 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -49,7 +54,7 @@ public class Paint extends JPanel {
         mouse = new PaintMouseListener(shapeMaker, this);
 
 //        this.addMouseListener(mouse);
-        this.addMouseMotionListener(mouse);
+//        this.addMouseMotionListener(mouse);
         this.zoomManager = new ZoomManager(this);
         this.addMouseWheelListener(zoomManager);
     }
@@ -63,8 +68,6 @@ public class Paint extends JPanel {
         gd.fillRect(0, 0, getWidth(), getHeight());
 
         gd.scale(scale, scale);
-
-        Stroke defaultStroke = gd.getStroke();
 
         gd.setColor(Color.black);
         drawables.forEach(drawable -> drawable.draw(gd));
@@ -100,4 +103,14 @@ public class Paint extends JPanel {
         this.mouse.setCtrlY(ctrlY);
     }
 
+    public void switchListener(MouseAdapter lineListener) {
+        for (MouseListener mouseListener : this.getMouseListeners()) {
+            this.removeMouseListener(mouseListener);
+        }
+        for (MouseMotionListener mouseMotionListener : this.getMouseMotionListeners()) {
+            this.removeMouseMotionListener(mouseMotionListener);
+        }
+        this.addMouseListener(lineListener);
+        this.addMouseMotionListener(lineListener);
+    }
 }
