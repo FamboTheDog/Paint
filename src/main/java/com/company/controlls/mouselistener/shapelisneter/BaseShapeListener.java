@@ -1,37 +1,28 @@
 package com.company.controlls.mouselistener.shapelisneter;
 
 import com.company.controlls.keybind.control.ControlY;
+import com.company.controlls.mouselistener.BaseMouseListener;
 import com.company.drawable.DrawableShape;
 import com.company.view.container.paint.Paint;
-import lombok.RequiredArgsConstructor;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
 
-@RequiredArgsConstructor
-public abstract class BaseShapeListener extends MouseAdapter {
-
-    protected final Paint paint;
-
-    protected double startX;
-    protected double startY;
+public abstract class BaseShapeListener extends BaseMouseListener {
 
     double newX;
     double newY;
     double width;
     double height;
 
-    private final ControlY ctrlY;
-
     protected DrawableShape shape;
+
+    public BaseShapeListener(Paint paint, ControlY ctrlY) {
+        super(paint, ctrlY);
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        ctrlY.reset();
-        startX = e.getX() / paint.getScale();
-        startY = e.getY() / paint.getScale();
 
         shape = instantiateShape();
         paint.getDrawables().add(shape);

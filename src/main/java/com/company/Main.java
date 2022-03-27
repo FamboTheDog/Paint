@@ -1,8 +1,7 @@
 package com.company;
 
-import com.company.controlls.mouselistener.shapelisneter.BaseShapeListener;
+import com.company.controlls.mouselistener.BrushListener;
 import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
-import com.company.controlls.mouselistener.shapelisneter.RectangleListener;
 import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.actionbar.ActionBar;
 import com.company.view.container.MainPanel;
@@ -36,7 +35,7 @@ public class Main {
         MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar);
         frame.add(mainPanel);
         paint.setCtrlY(mainPanel.getControlY());
-        BaseShapeListener lineListener = new EllipseListener(paint, mainPanel.getControlY());
+        BrushListener lineListener = new BrushListener(paint, mainPanel.getControlY());
         paint.addMouseListener(lineListener);
         paint.addMouseMotionListener(lineListener);
 

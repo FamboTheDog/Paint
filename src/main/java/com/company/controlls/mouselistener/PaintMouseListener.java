@@ -18,9 +18,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-/*
-* This class should seriously be split into 2 classes!
-* */
 public class PaintMouseListener extends MouseAdapter implements MouseMotionListener {
 
     @Getter

@@ -79,8 +79,7 @@ public class ShapeMaker {
 
     public ShapeContainer makeBrush(){
         if(mode != ShapeModes.BRUSH) return null;
-        this.stroke = new BasicStroke(strokeWidth,
-                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        this.stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
         ShapeContainer newShape = new ShapeContainer(color, new Line2D.Float(startX, startY, x, y), PaintType.PENCIL,
                 this.stroke);
         startX = x;

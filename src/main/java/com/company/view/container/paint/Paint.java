@@ -2,9 +2,8 @@ package com.company.view.container.paint;
 
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.mouselistener.PaintMouseListener;
-import com.company.controlls.mouselistener.ZoomManager;
+import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
 import com.company.drawable.Drawable;
-import com.company.drawable.DrawableShape;
 import com.company.shapemaker.ShapeContainer;
 import com.company.shapemaker.ShapeMaker;
 import lombok.Getter;
