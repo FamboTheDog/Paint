@@ -6,9 +6,12 @@ import lombok.Setter;
 import java.awt.*;
 
 @AllArgsConstructor
-public abstract class DrawableShape implements Drawable {
+public class DrawableShape implements Drawable {
 
     @Setter
     protected Shape shapeToDraw;
 
+    public void draw(Graphics2D gd) {
+        gd.draw(shapeToDraw);
+    }
 }
