@@ -17,6 +17,7 @@ public class LineListener extends BaseShapeListener {
     DrawableShape instantiateShape() {
         return new DrawableShape(new Line2D.Double(startX, startY, startX, startY));
     }
+
     @Override
     void updateShape(MouseEvent e) {
         shape.setShapeToDraw(new Line2D.Double(startX, startY, e.getX() / paint.getScale(), e.getY() / paint.getScale()));

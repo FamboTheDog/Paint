@@ -103,16 +103,6 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         this.add(bucket);
 
-         eraser = buttonMaker(action(e->{
-            currentShape.setMode(ShapeModes.ERASER);
-            currentShape.setStrokeWidth((Integer) strokeSetter.getValue());
-
-            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-        }));
-
-        setIcon(eraser, "eraser.png", "Eraser");
-        this.add(eraser);
-
         colorChooserMaker(e->{
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),
