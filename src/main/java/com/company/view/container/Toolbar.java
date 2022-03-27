@@ -8,7 +8,6 @@ import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
 import com.company.controlls.mouselistener.shapelisneter.LineListener;
 import com.company.controlls.mouselistener.shapelisneter.RectangleListener;
 import com.company.shapemaker.ShapeMaker;
-import com.company.shapemaker.ShapeModes;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
 
@@ -74,7 +73,7 @@ public class Toolbar extends JPanel implements ChangeListener {
         addShapeBox();
 
         pencil = buttonMaker(action(e-> {
-            paint.switchListener(brushListener);
+            paint.switchToListener(brushListener);
 
             currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(),
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
@@ -86,7 +85,7 @@ public class Toolbar extends JPanel implements ChangeListener {
         this.add(strokeSetterText);
         this.add(strokeSetter);
 
-        bucket = buttonMaker(action(e-> paint.switchListener(bucketListener)));
+        bucket = buttonMaker(action(e-> paint.switchToListener(bucketListener)));
         setIcon(bucket, "bucket.png", "Bucket");
 
         this.add(bucket);
@@ -105,19 +104,19 @@ public class Toolbar extends JPanel implements ChangeListener {
         strokeSetterText = new JLabel("Stroke:");
 
         shapeButtons = new JButton[3];
-        JButton lineDraw = buttonMaker(action(e -> paint.switchListener(lineListener)));
+        JButton lineDraw = buttonMaker(action(e -> paint.switchToListener(lineListener)));
         setIcon(lineDraw, "line.png", "Line");
         shapes.add(lineDraw);
         lineDraw.setBackground(clickedColor);
         lineDraw.doClick();
         shapeButtons[0] = lineDraw;
 
-        JButton rectangleDraw = buttonMaker(action(e -> paint.switchListener(rectangleListener)));
+        JButton rectangleDraw = buttonMaker(action(e -> paint.switchToListener(rectangleListener)));
         setIcon(rectangleDraw, "rectangle.png", "Rectangle");
         shapes.add(rectangleDraw);
         shapeButtons[1] = rectangleDraw;
 
-        JButton circleDraw = buttonMaker(action(e -> paint.switchListener(ellipseListener)));
+        JButton circleDraw = buttonMaker(action(e -> paint.switchToListener(ellipseListener)));
         setIcon(circleDraw, "circle.png", "Circle");
         shapes.add(circleDraw);
         shapeButtons[2] = circleDraw;

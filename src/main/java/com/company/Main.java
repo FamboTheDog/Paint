@@ -19,11 +19,7 @@ public class Main {
     private static final String APP_NAME = "Paint";
 
     public static void main(String[] args) {
-        frame.setTitle(APP_NAME);
-        frame.setSize(new Dimension(800, 700));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        initializeFrame();
 
         ShapeMaker shapeMaker = new ShapeMaker();
         Paint paint = new Paint(shapeMaker);
@@ -36,10 +32,17 @@ public class Main {
 
         MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar, controlY);
         frame.add(mainPanel);
-        paint.setCtrlY(mainPanel.getControlY());
 
         frame.revalidate();
         frame.repaint();
+    }
+
+    private static void initializeFrame() {
+        frame.setTitle(APP_NAME);
+        frame.setSize(new Dimension(800, 700));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public static JFrame getFrame(){

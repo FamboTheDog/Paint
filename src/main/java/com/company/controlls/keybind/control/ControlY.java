@@ -19,8 +19,9 @@ public class ControlY extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // TODO refactor
         if(whatToRevive.size() > 0 ){
-            paint.getMouse().getToPaint().add(whatToRevive.get(whatToRevive.size() - 1 ));
+//            paint.getDrawables().add(whatToRevive.get(whatToRevive.size() - 1 ));
             whatToRevive.remove(whatToRevive.size() - 1);
         }
         paint.repaint();
