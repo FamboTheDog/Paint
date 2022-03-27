@@ -1,11 +1,8 @@
 package com.company.controlls.mouselistener;
 
 import com.company.drawable.Bucket;
-import com.company.shapemaker.ShapeContainer;
 import com.company.shapemaker.ShapeMaker;
-import com.company.shapemaker.ShapeModes;
 import com.company.view.container.paint.Paint;
-import com.company.view.container.paint.PaintType;
 import lombok.AllArgsConstructor;
 
 import java.awt.*;

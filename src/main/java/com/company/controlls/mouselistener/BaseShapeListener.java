@@ -1,25 +1,24 @@
 package com.company.controlls.mouselistener;
 
 import com.company.controlls.keybind.control.ControlY;
-import com.company.drawable.Line;
+import com.company.drawable.DrawableShape;
 import com.company.view.container.paint.Paint;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Line2D;
 
 @RequiredArgsConstructor
-public class LineListener extends MouseAdapter {
+public abstract class BaseShapeListener extends MouseAdapter {
 
-    private final Paint paint;
+    protected final Paint paint;
 
-    private double startX;
-    private double startY;
+    protected double startX;
+    protected double startY;
 
     private final ControlY ctrlY;
 
-    private Line line;
+    protected DrawableShape shape;
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -28,25 +27,25 @@ public class LineListener extends MouseAdapter {
         startX = e.getX() / paint.getScale();
         startY = e.getY() / paint.getScale();
 
-        line = new Line(new Line2D.Double(startX, startY, startX, startY));
-        paint.getDrawables().add(line);
+        shape = instantiateShape();
+        paint.getDrawables().add(shape);
         paint.repaint();
     }
+
+    abstract DrawableShape instantiateShape();
 
     @Override
     public void mouseDragged(MouseEvent e) {
         super.mouseDragged(e);
-        updateLine(e);
+        updateShape(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        updateLine(e);
+        updateShape(e);
     }
 
-    private void updateLine(MouseEvent e) {
-        line.setShapeToDraw(new Line2D.Double(startX, startY, e.getX() / paint.getScale(), e.getY() / paint.getScale()));
-        paint.repaint();
-    }
+    abstract void updateShape(MouseEvent e);
+
 }

@@ -3,6 +3,7 @@ package com.company;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.mouselistener.BucketListener;
 import com.company.controlls.mouselistener.LineListener;
+import com.company.controlls.mouselistener.RectangleListener;
 import com.company.drawable.Line;
 import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.actionbar.ActionBar;
@@ -37,7 +38,7 @@ public class Main {
         MainPanel mainPanel = new MainPanel(paintContainer, toolbar, actionBar);
         frame.add(mainPanel);
         paint.setCtrlY(mainPanel.getControlY());
-        LineListener lineListener = new LineListener(paint, mainPanel.getControlY());
+        RectangleListener lineListener = new RectangleListener(paint, mainPanel.getControlY());
         paint.addMouseListener(lineListener);
         paint.addMouseMotionListener(lineListener);
 

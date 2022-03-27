@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
-public class Line extends DrawableShape {
+public class Rectangle extends DrawableShape {
 
-    public Line(Shape shapeToDraw) {
+    public Rectangle(Shape shapeToDraw) {
         super(shapeToDraw);
     }
 
