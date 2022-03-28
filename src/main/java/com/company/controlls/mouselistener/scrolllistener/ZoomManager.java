@@ -4,13 +4,16 @@ import com.company.view.paint.Paint;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class ZoomManager implements MouseWheelListener {
 
-    private Paint paint;
+    private final Paint paint;
 
     // will probably be editing after play-testing
     final double maxBound = 10;
@@ -26,6 +29,8 @@ public class ZoomManager implements MouseWheelListener {
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        if(!e.isControlDown()) return;
+
         this.scale -= e.getPreciseWheelRotation();
         if (scale < minBound) scale = minBound;
         else if (scale > maxBound) scale = maxBound;
@@ -40,4 +45,5 @@ public class ZoomManager implements MouseWheelListener {
             paint.getPaintC().getScrollPaneContainer().repaint();
         }
     }
+
 }

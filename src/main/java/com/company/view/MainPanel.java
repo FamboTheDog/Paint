@@ -7,13 +7,17 @@ import com.company.controlls.keybind.control.ControlV;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.keybind.control.ControlZ;
 import com.company.controlls.keybind.paintShortcuts.Template;
+import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
+import com.company.utility.KeyBindingUtil;
 import com.company.view.actionbar.ActionBar;
 import com.company.view.paint.Paint;
 import com.company.view.paint.PaintContainer;
 import lombok.Getter;
 
 import javax.swing.*;
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -40,39 +44,33 @@ public class MainPanel extends JPanel {
 
     private void addArrowShortcuts(Toolbar toolbar) {
         LeftArrow la = new LeftArrow(toolbar);
-        createKeyBinding("LEFT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), la);
+        KeyBindingUtil.createKeyBinding(this, "LEFT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0), la);
 
         RightArrow ra = new RightArrow(toolbar);
-        createKeyBinding("RIGHT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), ra);
+        KeyBindingUtil.createKeyBinding(this, "RIGHT_ARROW", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0), ra);
     }
 
     private void addControlKeyShortcuts(Paint paint) {
-        createKeyBinding("CONTROL_Y", KeyStroke.getKeyStroke('Y', InputEvent.CTRL_DOWN_MASK), controlY);
+        KeyBindingUtil.createKeyBinding(this, "CONTROL_Y", KeyStroke.getKeyStroke('Y', InputEvent.CTRL_DOWN_MASK), controlY);
 
         ControlZ controlZ = new ControlZ(paint, controlY);
-        createKeyBinding("CONTROL_Z", KeyStroke.getKeyStroke('Z', InputEvent.CTRL_DOWN_MASK), controlZ);
+        KeyBindingUtil.createKeyBinding(this, "CONTROL_Z", KeyStroke.getKeyStroke('Z', InputEvent.CTRL_DOWN_MASK), controlZ);
 
         ControlS controlS = new ControlS(paint);
-        createKeyBinding("CONTROL_S", KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK), controlS);
+        KeyBindingUtil.createKeyBinding(this, "CONTROL_S", KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK), controlS);
 
         ControlV controlV = new ControlV(paint);
-        createKeyBinding("CONTROL_V", KeyStroke.getKeyStroke('V', InputEvent.CTRL_DOWN_MASK), controlV);
+        KeyBindingUtil.createKeyBinding(this, "CONTROL_V", KeyStroke.getKeyStroke('V', InputEvent.CTRL_DOWN_MASK), controlV);
     }
 
     private void addToolShortcuts(Toolbar toolbar) {
         Template p = new Template(toolbar.getPencil());
-        createKeyBinding("PENCIL", KeyStroke.getKeyStroke('p'), p);
+        KeyBindingUtil.createKeyBinding(this, "PENCIL", KeyStroke.getKeyStroke('p'), p);
 
         Template b = new Template(toolbar.getBucket());
-        createKeyBinding("BUCKET", KeyStroke.getKeyStroke('b'), b);
+        KeyBindingUtil.createKeyBinding(this, "BUCKET", KeyStroke.getKeyStroke('b'), b);
 
-        Template e = new Template(toolbar.getEraser());
-        createKeyBinding("ERASER", KeyStroke.getKeyStroke('e'), e);
     }
 
-    private void createKeyBinding(String name, KeyStroke keyStroke,Action action){
-        this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(keyStroke, name);
-        this.getActionMap().put(name, action);
-    }
 
 }

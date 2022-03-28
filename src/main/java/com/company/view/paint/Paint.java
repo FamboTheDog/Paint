@@ -3,14 +3,13 @@ package com.company.view.paint;
 import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
 import com.company.drawable.Drawable;
 import com.company.drawable.Image;
+import com.company.utility.KeyBindingUtil;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -23,9 +22,6 @@ public class Paint extends JPanel {
     @Getter
     @Setter
     double scale = 1;
-
-    @Getter
-    private final ZoomManager zoomManager;
 
     @Getter
     @Setter
@@ -50,11 +46,13 @@ public class Paint extends JPanel {
     @Setter
     private int strokeWidth;
 
+    @Getter
+    private final ZoomManager zoomManager = new ZoomManager(this);
+
     public Paint(){
         Dimension defaultSize = currentSize;
         this.setSize(defaultSize);
 
-        this.zoomManager = new ZoomManager(this);
         this.addMouseWheelListener(zoomManager);
     }
 

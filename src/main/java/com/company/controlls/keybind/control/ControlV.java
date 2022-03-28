@@ -33,8 +33,6 @@ public class ControlV extends AbstractAction {
             } catch (UnsupportedFlavorException | IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            System.err.println("getImageFromClipboard: That wasn't an image!");
         }
         return null;
     }

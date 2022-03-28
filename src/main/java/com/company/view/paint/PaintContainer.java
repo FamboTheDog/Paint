@@ -1,9 +1,13 @@
 package com.company.view.paint;
 
+import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
+import com.company.utility.KeyBindingUtil;
 import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class PaintContainer extends JPanel {
 
@@ -30,9 +34,6 @@ public class PaintContainer extends JPanel {
         scrollPane.setBorder(BorderFactory.createEmptyBorder()); // removes the ugly outline that JScrollPane creates
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        scrollPaneContainer.addMouseWheelListener(paint.getZoomManager());
-
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
