@@ -1,2 +1,6 @@
 /images/
 /out/
+/.gradle
+/.idea
+/gradle
+/build
