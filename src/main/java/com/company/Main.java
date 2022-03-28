@@ -3,7 +3,6 @@ package com.company;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.mouselistener.BrushListener;
 import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
-import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.actionbar.ActionBar;
 import com.company.view.container.MainPanel;
 import com.company.view.container.paint.Paint;
@@ -21,12 +20,11 @@ public class Main {
     public static void main(String[] args) {
         initializeFrame();
 
-        ShapeMaker shapeMaker = new ShapeMaker();
-        Paint paint = new Paint(shapeMaker);
+        Paint paint = new Paint();
         PaintContainer paintContainer = new PaintContainer(paint);
         ControlY controlY = new ControlY(paint);
 
-        Toolbar toolbar = new Toolbar(shapeMaker, paint, controlY);
+        Toolbar toolbar = new Toolbar(paint, controlY);
 
         ActionBar actionBar = new ActionBar(paint);
 

@@ -7,7 +7,6 @@ import com.company.controlls.mouselistener.BucketListener;
 import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
 import com.company.controlls.mouselistener.shapelisneter.LineListener;
 import com.company.controlls.mouselistener.shapelisneter.RectangleListener;
-import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
 
@@ -17,13 +16,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Toolbar extends JPanel implements ChangeListener {
 
-    private final ShapeMaker currentShape;
     private final Paint paint;
     private final ControlY controlY;
 
@@ -33,8 +33,7 @@ public class Toolbar extends JPanel implements ChangeListener {
     private BucketListener bucketListener;
     private BrushListener brushListener;
 
-    public Toolbar(ShapeMaker currentShape, Paint paint, ControlY controlY){
-        this.currentShape = currentShape;
+    public Toolbar(Paint paint, ControlY controlY){
         this.paint = paint;
         this.controlY = controlY;
         initializeListeners();
@@ -45,7 +44,7 @@ public class Toolbar extends JPanel implements ChangeListener {
         lineListener = new LineListener(paint, controlY);
         rectangleListener = new RectangleListener(paint, controlY);
         ellipseListener = new EllipseListener(paint, controlY);
-        bucketListener = new BucketListener(paint, currentShape);
+        bucketListener = new BucketListener(paint);
         brushListener = new BrushListener(paint, controlY);
     }
 
@@ -74,10 +73,8 @@ public class Toolbar extends JPanel implements ChangeListener {
 
         pencil = buttonMaker(action(e-> {
             paint.switchToListener(brushListener);
-
-            currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(),
+            paint.setStroke(new BasicStroke(paint.getStrokeWidth(),
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-
         }));
         setIcon(pencil, "pencil.png", "Pencil");
 
@@ -100,6 +97,9 @@ public class Toolbar extends JPanel implements ChangeListener {
         SpinnerModel strokeValues = new SpinnerNumberModel(5, 1, 99, 1);
         strokeSetter = new JSpinner(strokeValues);
         strokeSetter.addChangeListener(this);
+        Integer strokeWidth = (Integer) strokeSetter.getValue();
+        paint.setStrokeWidth(strokeWidth);
+        paint.setStroke(new BasicStroke(strokeWidth));
 
         strokeSetterText = new JLabel("Stroke:");
 
@@ -130,25 +130,25 @@ public class Toolbar extends JPanel implements ChangeListener {
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),
                     "Choose Color",
-                    currentShape.getColor());
+                    paint.getColor());
             if(newColor != null) {
-                currentShape.setColor(newColor);
+                paint.setColor(newColor);
                 JButton source = (JButton) e.getSource();
-                source.setBackground(currentShape.getColor());
+                source.setBackground(paint.getColor());
             }
-        }, "FG", currentShape.getColor());
+        }, "FG", paint.getColor());
 
         colorChooserMaker(e->{
             Color newColor = JColorChooser.showDialog(
                     Main.getFrame(),
                     "Choose Color",
-                    currentShape.getColor());
+                    paint.getColor());
             if(newColor != null) {
-                currentShape.setBgColor(newColor);
+                paint.setBgColor(newColor);
                 JButton source = (JButton) e.getSource();
-                source.setBackground(currentShape.getBgColor());
+                source.setBackground(paint.getBgColor());
             }
-        }, "BG", currentShape.getBgColor());
+        }, "BG", paint.getBgColor());
     }
 
     public void setIcon(JButton button, String imgName, String backupText){
@@ -209,14 +209,13 @@ public class Toolbar extends JPanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         JSpinner source = (JSpinner) e.getSource();
-        currentShape.setStrokeWidth((Integer) source.getValue());
-        // I was lazy so just did this switch instead of a good solution
-        switch (currentShape.getMode()){
-            case BRUSH -> currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth(),
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            case ERASER -> currentShape.setStroke(new BasicStroke(
-                    currentShape.getStrokeWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-            case RECTANGLE, CIRCLE, LINE -> currentShape.setStroke(new BasicStroke(currentShape.getStrokeWidth()));
+        paint.setStrokeWidth((Integer) source.getValue());
+        MouseListener currentMouseListener = paint.getMouseListeners()[0];
+        if (currentMouseListener instanceof BrushListener) {
+            paint.setStroke(new BasicStroke(paint.getStrokeWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        } else if (currentMouseListener instanceof RectangleListener || currentMouseListener instanceof EllipseListener ||
+                    currentMouseListener instanceof LineListener) {
+            paint.setStroke(new BasicStroke(paint.getStrokeWidth()));
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.company.controlls.mouselistener;
 
 import com.company.drawable.Bucket;
-import com.company.shapemaker.ShapeMaker;
 import com.company.view.container.paint.Paint;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +13,6 @@ import java.awt.image.BufferedImage;
 public class BucketListener extends MouseAdapter {
 
     private Paint paint;
-    private ShapeMaker shapeMaker;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -22,7 +20,7 @@ public class BucketListener extends MouseAdapter {
         Graphics2D cg = bImg.createGraphics();
         paint.paintAll(cg);
 
-        paint.getDrawables().add(new Bucket(bImg, e.getX(), e.getY(), paint.getWidth(), paint.getHeight(), shapeMaker.getColor()));
+        paint.getDrawables().add(new Bucket(bImg, e.getX(), e.getY(), paint.getWidth(), paint.getHeight(), paint.getColor()));
 
         paint.repaint();
     }

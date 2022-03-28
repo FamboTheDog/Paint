@@ -18,7 +18,7 @@ public class BrushListener extends BaseMouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        brush = new Brush();
+        brush = new Brush(paint.getStroke(), paint.getColor());
         brush.getBrushes().add(new Line2D.Double(startX, startY, startX, startY));
         paint.getDrawables().add(brush);
         paint.repaint();

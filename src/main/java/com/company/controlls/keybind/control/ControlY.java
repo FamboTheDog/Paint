@@ -1,5 +1,6 @@
 package com.company.controlls.keybind.control;
 
+import com.company.drawable.Drawable;
 import com.company.shapemaker.ShapeContainer;
 import com.company.view.container.paint.Paint;
 import lombok.Getter;
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 
 public class ControlY extends AbstractAction {
 
-    @Getter private final ArrayList<ShapeContainer> whatToRevive = new ArrayList<>();
-    Paint paint;
+    @Getter
+    private final ArrayList<Drawable> whatToRevive = new ArrayList<>();
+
+    private final Paint paint;
 
     public ControlY(Paint paint){
         this.paint = paint;
@@ -19,9 +22,8 @@ public class ControlY extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO refactor
         if(whatToRevive.size() > 0 ){
-//            paint.getDrawables().add(whatToRevive.get(whatToRevive.size() - 1 ));
+            paint.getDrawables().add(whatToRevive.get(whatToRevive.size() - 1));
             whatToRevive.remove(whatToRevive.size() - 1);
         }
         paint.repaint();

@@ -3,7 +3,6 @@ package com.company.view.container.paint;
 import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
 import com.company.drawable.Drawable;
 import com.company.drawable.Image;
-import com.company.shapemaker.ShapeMaker;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +15,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Paint extends JPanel {
-
-    private final ShapeMaker shapeMaker;
 
     @Getter
     @Setter
@@ -37,11 +34,24 @@ public class Paint extends JPanel {
     @Getter
     private final ArrayList<Drawable> drawables = new ArrayList<>();
 
-    public Paint(ShapeMaker currentShape){
-        this.shapeMaker = currentShape;
+    @Getter
+    @Setter
+    private Color color;
 
+    @Getter
+    @Setter
+    private Color BgColor;
+
+    @Getter
+    @Setter
+    private Stroke stroke;
+
+    @Getter
+    @Setter
+    private int strokeWidth;
+
+    public Paint(){
         Dimension defaultSize = currentSize;
-
         this.setSize(defaultSize);
 
         this.zoomManager = new ZoomManager(this);

@@ -15,7 +15,7 @@ public class LineListener extends BaseShapeListener {
 
     @Override
     DrawableShape instantiateShape() {
-        return new DrawableShape(new Line2D.Double(startX, startY, startX, startY));
+        return new DrawableShape(new Line2D.Double(startX, startY, startX, startY), paint.getStroke(), paint.getColor());
     }
 
     @Override

@@ -15,7 +15,7 @@ public class RectangleListener extends BaseShapeListener {
 
     @Override
     DrawableShape instantiateShape() {
-        return new DrawableShape(new Rectangle2D.Double(startX, startY, 1, 1));
+        return new DrawableShape(new Rectangle2D.Double(startX, startY, 1, 1), paint.getStroke(), paint.getColor());
     }
 
     @Override
