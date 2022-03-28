@@ -1,6 +1,6 @@
 package com.company.shapemaker;
 
-import com.company.view.container.paint.PaintType;
+import com.company.view.paint.PaintType;
 import lombok.*;
 
 import java.awt.*;

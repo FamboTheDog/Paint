@@ -1,4 +1,4 @@
-package com.company.view.container.actionbar.image_actions;
+package com.company.view.actionbar.image_actions;
 
 import lombok.Getter;
 

@@ -1,6 +1,5 @@
 package com.company.controlls.keybind.paintShortcuts;
 
-import com.company.view.container.Toolbar;
 import lombok.AllArgsConstructor;
 
 import javax.swing.*;

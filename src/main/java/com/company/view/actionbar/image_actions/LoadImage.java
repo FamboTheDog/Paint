@@ -1,7 +1,7 @@
-package com.company.view.container.actionbar.image_actions;
+package com.company.view.actionbar.image_actions;
 
 import com.company.Main;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class LoadImage implements ActionListener {
 
-    Paint paint;
+    com.company.view.paint.Paint paint;
     public LoadImage(Paint paint){
         this.paint = paint;
     }

@@ -1,11 +1,9 @@
 package com.company.controlls.keybind.control;
 
-import com.company.shapemaker.ShapeContainer;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 public class ControlZ extends AbstractAction {
 

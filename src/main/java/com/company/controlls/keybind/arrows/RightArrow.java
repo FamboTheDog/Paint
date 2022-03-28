@@ -1,6 +1,6 @@
 package com.company.controlls.keybind.arrows;
 
-import com.company.view.container.Toolbar;
+import com.company.view.Toolbar;
 import lombok.AllArgsConstructor;
 
 import javax.swing.*;

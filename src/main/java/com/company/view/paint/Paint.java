@@ -1,4 +1,4 @@
-package com.company.view.container.paint;
+package com.company.view.paint;
 
 import com.company.controlls.mouselistener.scrolllistener.ZoomManager;
 import com.company.drawable.Drawable;

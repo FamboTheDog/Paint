@@ -1,4 +1,4 @@
-package com.company.view.container;
+package com.company.view;
 
 import com.company.Main;
 import com.company.controlls.keybind.control.ControlY;
@@ -7,7 +7,7 @@ import com.company.controlls.mouselistener.BucketListener;
 import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
 import com.company.controlls.mouselistener.shapelisneter.LineListener;
 import com.company.controlls.mouselistener.shapelisneter.RectangleListener;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 import lombok.Getter;
 
 import javax.imageio.ImageIO;
@@ -16,7 +16,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 
 public class Toolbar extends JPanel implements ChangeListener {
 
-    private final Paint paint;
+    private final com.company.view.paint.Paint paint;
     private final ControlY controlY;
 
     private LineListener lineListener;

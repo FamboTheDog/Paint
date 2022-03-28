@@ -1,13 +1,11 @@
 package com.company;
 
 import com.company.controlls.keybind.control.ControlY;
-import com.company.controlls.mouselistener.BrushListener;
-import com.company.controlls.mouselistener.shapelisneter.EllipseListener;
-import com.company.view.container.actionbar.ActionBar;
-import com.company.view.container.MainPanel;
-import com.company.view.container.paint.Paint;
-import com.company.view.container.Toolbar;
-import com.company.view.container.paint.PaintContainer;
+import com.company.view.actionbar.ActionBar;
+import com.company.view.MainPanel;
+import com.company.view.paint.Paint;
+import com.company.view.Toolbar;
+import com.company.view.paint.PaintContainer;
 
 import javax.swing.*;
 import java.awt.*;

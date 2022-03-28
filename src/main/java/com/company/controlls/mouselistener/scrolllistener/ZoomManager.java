@@ -1,6 +1,6 @@
 package com.company.controlls.mouselistener.scrolllistener;
 
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import java.awt.event.MouseWheelListener;
 
 public class ZoomManager implements MouseWheelListener {
 
-    private com.company.view.container.paint.Paint paint;
+    private Paint paint;
 
     // will probably be editing after play-testing
     final double maxBound = 10;

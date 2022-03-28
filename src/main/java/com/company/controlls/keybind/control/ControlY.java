@@ -1,8 +1,7 @@
 package com.company.controlls.keybind.control;
 
 import com.company.drawable.Drawable;
-import com.company.shapemaker.ShapeContainer;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 import lombok.Getter;
 
 import javax.swing.*;

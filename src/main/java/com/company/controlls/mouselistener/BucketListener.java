@@ -1,7 +1,7 @@
 package com.company.controlls.mouselistener;
 
 import com.company.drawable.Bucket;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 import lombok.AllArgsConstructor;
 
 import java.awt.*;

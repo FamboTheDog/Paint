@@ -1,9 +1,9 @@
-package com.company.view.container.actionbar;
+package com.company.view.actionbar;
 
-import com.company.view.container.actionbar.image_actions.LoadImage;
-import com.company.view.container.actionbar.image_actions.SaveImage;
-import com.company.view.container.actionbar.FileActions.sizeEdit.SizeEdit;
-import com.company.view.container.paint.Paint;
+import com.company.view.actionbar.image_actions.SaveImage;
+import com.company.view.actionbar.image_actions.LoadImage;
+import com.company.view.actionbar.FileActions.sizeEdit.SizeEdit;
+import com.company.view.paint.Paint;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.*;
 public class ActionBar extends JPanel {
 
 
-    Paint paint;
+    com.company.view.paint.Paint paint;
     public ActionBar(Paint paint){
         this.paint = paint;
         init();

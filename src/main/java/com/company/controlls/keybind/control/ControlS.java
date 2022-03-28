@@ -1,7 +1,7 @@
 package com.company.controlls.keybind.control;
 
-import com.company.view.container.actionbar.image_actions.SaveImage;
-import com.company.view.container.paint.Paint;
+import com.company.view.actionbar.image_actions.SaveImage;
+import com.company.view.paint.Paint;
 import lombok.AllArgsConstructor;
 
 import javax.swing.*;

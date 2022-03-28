@@ -3,7 +3,7 @@ package com.company.controlls.mouselistener.shapelisneter;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.mouselistener.BaseMouseListener;
 import com.company.drawable.DrawableShape;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 
 import java.awt.event.MouseEvent;
 

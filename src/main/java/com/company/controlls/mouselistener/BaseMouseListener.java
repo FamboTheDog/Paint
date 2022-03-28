@@ -1,7 +1,7 @@
 package com.company.controlls.mouselistener;
 
 import com.company.controlls.keybind.control.ControlY;
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 import lombok.RequiredArgsConstructor;
 
 import java.awt.event.MouseAdapter;

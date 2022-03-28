@@ -1,4 +1,4 @@
-package com.company.view.container;
+package com.company.view;
 
 import com.company.controlls.keybind.arrows.LeftArrow;
 import com.company.controlls.keybind.arrows.RightArrow;
@@ -6,9 +6,9 @@ import com.company.controlls.keybind.control.ControlS;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.keybind.control.ControlZ;
 import com.company.controlls.keybind.paintShortcuts.Template;
-import com.company.view.container.actionbar.ActionBar;
-import com.company.view.container.paint.Paint;
-import com.company.view.container.paint.PaintContainer;
+import com.company.view.actionbar.ActionBar;
+import com.company.view.paint.Paint;
+import com.company.view.paint.PaintContainer;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -31,7 +31,7 @@ public class MainPanel extends JPanel {
         this.requestFocusInWindow();
     }
 
-    private void addKeyboardShortcuts(Paint paint, Toolbar toolbar) {
+    private void addKeyboardShortcuts(com.company.view.paint.Paint paint, Toolbar toolbar) {
         addControlKeyShortcuts(paint);
         addToolShortcuts(toolbar);
         addArrowShortcuts(toolbar);

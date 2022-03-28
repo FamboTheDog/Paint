@@ -1,6 +1,6 @@
-package com.company.view.container.actionbar.FileActions.sizeEdit;
+package com.company.view.actionbar.FileActions.sizeEdit;
 
-import com.company.view.container.paint.Paint;
+import com.company.view.paint.Paint;
 import lombok.Getter;
 
 import javax.swing.*;

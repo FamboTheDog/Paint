@@ -1,4 +1,4 @@
-package com.company.view.container.paint;
+package com.company.view.paint;
 
 public enum PaintType {
     FILL, DRAW, IMAGE, PENCIL
