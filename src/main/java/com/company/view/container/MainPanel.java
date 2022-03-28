@@ -58,13 +58,13 @@ public class MainPanel extends JPanel {
     }
 
     private void addToolShortcuts(Toolbar toolbar) {
-        Template p = new Template(toolbar, toolbar.getPencil());
+        Template p = new Template(toolbar.getPencil());
         createKeyBinding("PENCIL", KeyStroke.getKeyStroke('p'), p);
 
-        Template b = new Template(toolbar, toolbar.getBucket());
+        Template b = new Template(toolbar.getBucket());
         createKeyBinding("BUCKET", KeyStroke.getKeyStroke('b'), b);
 
-        Template e = new Template(toolbar, toolbar.getEraser());
+        Template e = new Template(toolbar.getEraser());
         createKeyBinding("ERASER", KeyStroke.getKeyStroke('e'), e);
     }
 

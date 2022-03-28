@@ -36,11 +36,11 @@ public class Paint extends JPanel {
 
     @Getter
     @Setter
-    private Color color;
+    private Color color = Color.BLACK;
 
     @Getter
     @Setter
-    private Color BgColor;
+    private Color BgColor = Color.WHITE;
 
     @Getter
     @Setter
@@ -70,26 +70,6 @@ public class Paint extends JPanel {
 
         gd.setColor(Color.black);
         drawables.forEach(drawable -> drawable.draw(gd));
-
-//        mouse.getToPaint().forEach((painting)->{
-//            if (painting.getShapes() != null){
-//                gd.setColor(painting.getColor());
-//                gd.setStroke(painting.getStroke());
-//
-//                painting.getShapes().forEach((paint -> gd.draw(paint.getShape())));
-//
-//                gd.setStroke(defaultStroke);
-//            }else{
-//                gd.setColor(painting.getColor());
-//                switch (painting.getPaintType()){
-//                    case DRAW -> {
-//                        gd.draw(painting.getShape());
-//                        gd.setStroke(painting.getStroke());
-//                    }
-//                    case IMAGE -> gd.drawImage(painting.getImg(), 0, 0, null);
-//                }
-//            }
-//        });
 
         gd.dispose();
     }

@@ -8,8 +8,8 @@ import java.awt.event.ActionEvent;
 
 @AllArgsConstructor
 public class Template extends AbstractAction {
-    Toolbar toolbar;
-    JButton toClick;
+
+    private JButton toClick;
 
     @Override
     public void actionPerformed(ActionEvent e){
