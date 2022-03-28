@@ -3,6 +3,7 @@ package com.company.view;
 import com.company.controlls.keybind.arrows.LeftArrow;
 import com.company.controlls.keybind.arrows.RightArrow;
 import com.company.controlls.keybind.control.ControlS;
+import com.company.controlls.keybind.control.ControlV;
 import com.company.controlls.keybind.control.ControlY;
 import com.company.controlls.keybind.control.ControlZ;
 import com.company.controlls.keybind.paintShortcuts.Template;
@@ -46,15 +47,16 @@ public class MainPanel extends JPanel {
     }
 
     private void addControlKeyShortcuts(Paint paint) {
-        createKeyBinding("CONTROL_Y", KeyStroke.getKeyStroke('Y',
-                InputEvent.CTRL_DOWN_MASK), controlY);
+        createKeyBinding("CONTROL_Y", KeyStroke.getKeyStroke('Y', InputEvent.CTRL_DOWN_MASK), controlY);
 
         ControlZ controlZ = new ControlZ(paint, controlY);
-        createKeyBinding("CONTROL_Z", KeyStroke.getKeyStroke('Z',
-                InputEvent.CTRL_DOWN_MASK), controlZ);
+        createKeyBinding("CONTROL_Z", KeyStroke.getKeyStroke('Z', InputEvent.CTRL_DOWN_MASK), controlZ);
 
         ControlS controlS = new ControlS(paint);
         createKeyBinding("CONTROL_S", KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK), controlS);
+
+        ControlV controlV = new ControlV(paint);
+        createKeyBinding("CONTROL_V", KeyStroke.getKeyStroke('V', InputEvent.CTRL_DOWN_MASK), controlV);
     }
 
     private void addToolShortcuts(Toolbar toolbar) {

@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 @AllArgsConstructor
 public class ControlS extends AbstractAction {
 
-    Paint paint;
+    private Paint paint;
 
     @Override
     public void actionPerformed(ActionEvent e) {
